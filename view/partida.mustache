@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/PW2MVC-PREGUNTADOS/public/css/partida.css">
+
     <title>Juego</title>
-    <link rel="stylesheet" href="/TP-pw2-MiniPreguntados/app/view/estilo/partidaEstilo.css">
-
-
 </head>
 <body>
 
 <div class="profile-container">
     <!-- Contenedor de la foto de perfil y nombre -->
     <div class="profile-pic-container">
-        <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+        <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
     </div>
     <!-- Nombre del usuario -->
     <h2 id="userName">{{nombre_usuario}}</h2>
@@ -35,7 +34,7 @@
         <div class="number" style="top: 85%; left: 50%;">Historia</div>
         <div class="number" style="top: 70%; left: 20%;">Ciencia</div>
         <div class="number" style="top: 30%; left: 20%;">Geografía</div>
-        <a href="/PreguntadosPWII-main/Partida/mostrarPregunta?categoria={{categoria}}">
+        <a href="/PW2MVC-PREGUNTADOS/Partida/mostrarPregunta?categoria={{categoria}}">
         <button class="tirar-button">Tirar</button>
         </a>
         <a href="">

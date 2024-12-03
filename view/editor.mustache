@@ -73,8 +73,7 @@
                         <div class="modal-content">
                             <span class="close" data-id="{{ID}}">&times;</span>
                             <h3>Modificar Pregunta</h3>
-                            <!--<form id="modifyForm" action="index.php?page=editor&action=modificarPregunta" method="post">-->
-                            <form id="modifyForm" action="/PreguntadosPWII-main/Editor/modificarPregunta" method="post">
+                            <form id="modifyForm" action="/PW2MVC-PREGUNTADOS/Editor/modificarPregunta" method="post">
                                 <input type="hidden" name="ID" value="{{ID}}">
                                 <input type="hidden" name="Usuario_id" value="{{Usuario_id}}">
 
@@ -103,8 +102,7 @@
                             </form>
                         </div>
                     </div>
-                    <!-- <form action="index.php?page=editor&action=agregarPregunta" method="post">-->
-                    <form id="modifyForm" action="/PreguntadosPWII-main/Editor/agregarPregunta" method="post">
+                    <form id="modifyForm" action="/PW2MVC-PREGUNTADOS/Editor/agregarPregunta" method="post">
                         <input type="hidden" name="ID" value="{{ID}}">
                         <input type="hidden" name="Pregunta" value="{{Pregunta}}">
                         <input type="hidden" name="OpcionA" value="{{OpcionA}}">
@@ -116,8 +114,7 @@
                         <button class="action-button add-button">Agregar</button>
                     </form>
                     <!-- Formulario para eliminar la pregunta -->
-                    <!-- <form action="index.php?page=editor&action=eliminarPregunta" method="post">-->
-                    <form id="modifyForm" action="/PreguntadosPWII-main/Editor/eliminarPregunta" method="post">
+                    <form id="modifyForm" action="/PW2MVC-PREGUNTADOS/Editor/eliminarPregunta" method="post">
 
                         <input type="hidden" name="ID" value="{{ID}}">
                         <button type="submit" class="action-button delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta pregunta?');">Eliminar</button>
@@ -152,13 +149,11 @@
                 <td>{{Descripcion}}</td>
                 <td>{{nombre_usuario}}</td>
                 <td>
-                    <!--<form action="index.php?page=editor&action=rechazarReporte" method="post">-->
-                    <form action="/PreguntadosPWII-main/Editor/rechazarReporte" method="post">
+                    <form action="/PW2MVC-PREGUNTADOS/Editor/rechazarReporte" method="post">
                         <input type="hidden" name="ID" value="{{ID}}"> <!--Como en el array me traigo toda la tabla reporte este es su id -->
                         <button  class="action-button delete-button" >Rechazar</button>
                     </form>
-                    <!-- <form action="index.php?page=editor&action=aprobarReporte" method="post">-->
-                    <form action="/PreguntadosPWII-main/Editor/aprobarReporte" method="post">
+                    <form action="/PW2MVC-PREGUNTADOS/Editor/aprobarReporte" method="post">
 
                         <input type="hidden" name="ID" value="{{ID}}">
                         <input type="hidden" name="Pregunta_id" value="{{Pregunta_id}}">

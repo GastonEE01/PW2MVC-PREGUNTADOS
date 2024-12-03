@@ -46,13 +46,13 @@ let countdownInterval = setInterval(() => {
         modal.style.display = "flex";
 
         closeModal.onclick = function() {
-            window.location.href = '/tp-pw2-MiniPreguntados/app/Partida/validarRespuesta';
+            window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
             modal.style.display = "none"; // Cerrar el modal
         };
 
         window.onclick = function(event) {
             if (event.target == modal) {
-                window.location.href = '/tp-pw2-MiniPreguntados/app/Partida/validarRespuesta';
+                window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
                 modal.style.display = "none"; // Cerrar el modal
             }
         };
@@ -121,7 +121,7 @@ function mostrarModalCorrecto() {
 
     // Espera 3 segundos y redirige a la ruleta
     setTimeout(() => {
-        window.location.href = '/PreguntadosPWII-main/Partida/usuarioRespondioBien';
+        window.location.href = '/PW2MVC-PREGUNTADOS/Partida/usuarioRespondioBien';
     }, 3000);
 }
 

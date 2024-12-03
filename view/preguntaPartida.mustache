@@ -13,7 +13,7 @@
 <div class="profile-container">
     <!-- Contenedor de la foto de perfil y nombre -->
     <div class="profile-pic-container">
-        <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+        <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
     </div>
     <!-- Nombre del usuario -->
     <h2 id="userName">{{nombre_usuario}}</h2>
@@ -33,7 +33,7 @@
             <h2>{{pregunta}}</h2>
         </div>
 
-        <form id="formValidarRespuesta" action="/PreguntadosPWII-main/Partida/validarRespuesta" method="POST">
+        <form id="formValidarRespuesta" action="/PW2MVC-PREGUNTADOS/Partida/validarRespuesta" method="POST">
             <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
             <input type="hidden" name="id_partida" value="{{id_partida}}">
             <input id="tiempo" type="hidden" name="tiempo" value="1">
@@ -84,7 +84,7 @@
     </div>
 
 <!-- Modal de pregunta incorrecta -->
-<form action="/PreguntadosPWII-main/Partida/usuarioRespondioMal" method="post">
+<form action="/PW2MVC-PREGUNTADOS/Partida/usuarioRespondioMal" method="post">
     <div class="modalIncorrecto" id="modalIncorrecto" style="display: none;">
         <div>
             <h2>Respuesta Incorrecta</h2>
@@ -101,7 +101,7 @@
         <span class="close" id="closeModal">&times;</span>
         <h2>Seleccione el motivo del reporte</h2>
         <!--        <form id="formReportarPregunta" action="index.php?page=preguntasPartida&action=reportarPregunta" method="POST">-->
-        <form id="formReportarPregunta" action="/PreguntadosPWII-main/Usuario/reportarPregunta" method="POST">
+        <form id="formReportarPregunta" action="/PW2MVC-PREGUNTADOS/Usuario/reportarPregunta" method="POST">
 
             <select name="selectMotivo">
                 <option>Elija un opcion</option>

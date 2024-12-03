@@ -33,7 +33,7 @@ class descargar_pdf
 </head>
 <body>
     <h1>Reporte de Usuarios por Edad</h1>
-    <img src="http://localhost/PreguntadosPWII-main/public/imagenes/grafico/chart.png" alt="Gráfico de Usuarios por Edad">
+    <img src="http://localhost/PW2MVC-PREGUNTADOS/public/imagenes/grafico/chart.png" alt="Gráfico de Usuarios por Edad">
 </body>
 </html>
 ';

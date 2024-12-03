@@ -187,7 +187,7 @@ class UsuarioController
                 }
                 // Valido que el usuario tenga la sesion iniciada, sino lo mando al login
                 if($user =='Invitado' || $user=="admin")
-                    header("Location: /tp-pw2-MiniPreguntados/app/login");
+                    header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
 
                 $this->presenter->render('view/editor.mustache',[
                     'nombre_usuario' => $user['nombre_usuario'],

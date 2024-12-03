@@ -57,7 +57,7 @@
                 <div class="popup-content">
                     <span class="close" onclick="closePopup()">&times;</span>
                     <h2>Crear Nueva Pregunta</h2>
-                    <form action="/PreguntadosPWII-main/Usuario/usuarioSugerirPregunta" method="POST">
+                    <form action="/PW2MVC-PREGUNTADOS/Usuario/usuarioSugerirPregunta" method="POST">
                         <label for="pregunta">Pregunta:</label>
                         <input type="text" id="pregunta" name="pregunta" required>
                         <label for="optionA">Opción A:</label>
@@ -95,7 +95,7 @@
     <div >
     </div>
     <div class="profile-pic-container">
-        <a href="/PreguntadosPWII-main/Usuario/vistaPerfil">
+        <a href="/PW2MVC-PREGUNTADOS/Usuario/vistaPerfil">
             <!--<img src="{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">-->
             <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
         </a>
@@ -109,14 +109,14 @@
     <button id="crearPartidaButton" class="create-button" onclick="openModal('crearPartidaModal')">Crear Partida</button>
 
     <!-- Modal para crear partida -->
-    <form action="/PreguntadosPWII-main/Partida/crearPartida" method="post">
+    <form action="/PW2MVC-PREGUNTADOS/Partida/crearPartida" method="post">
 
     <div id="crearPartidaModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('crearPartidaModal')">&times;</span>
             <h2>Crear Partida</h2>
                 <div class="user-section">
-                    <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+                    <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
                     <h3>{{nombre_usuario}}</h3>
                     <h3>{{id}}</h3>
                 </div>
@@ -138,12 +138,12 @@
     <div class="game-list">
         {{#partidas}}
             <div class="game-entry">
-                <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+                <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
                 <div class="game-info">
                     <h3>{{nombre_usuario}}</h3>
                     <p>{{Descripcion}}</p>
                 </div>
-                <a href="/PreguntadosPWII-main/Partida/jugarPartida/{{ID}}">
+                <a href="/PW2MVC-PREGUNTADOS/Partida/jugarPartida/{{ID}}">
                     <button class="join-button">Empezar</button>
                 </a>
             </div>
