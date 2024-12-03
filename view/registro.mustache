@@ -1,0 +1,272 @@
+<!--<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiq3xISXSZYgkd9GDAOdajy4NK2d3L7dY"></script>
+    <script>
+        function initMap() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-34.6686986, -58.5614947),
+                zoom: 12,
+                panControl: false,
+                zoomControl: false,
+                scaleControl: false,
+                mapTypeControl: false,
+                streetViewControl: true,
+                overviewMapControl: true,
+                rotateControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("mapa"), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(-34.6686986, -58.5614947),
+                map: map,
+                draggable: true,
+            });
+
+            google.maps.event.addListener(map, 'click', function(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+
+                marker.setPosition(new google.maps.LatLng(lat, lng));
+
+                document.getElementById('lat').value = lat;
+                document.getElementById('lng').value = lng;
+
+                fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=c2638da7257a403184f9a73d58e8f8e6`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.results.length > 0) {
+                                var location = data.results[0].components;
+                                var ciudad = location.city || location.town || location.village || '';
+                                var pais = location.country || '';
+
+                                document.getElementById('ciudad').value = ciudad;
+                                document.getElementById('pais').value = pais;
+                            } else {
+                                console.log('No results found');
+                            }
+                        })
+                        .catch(error => {
+                            console.log('Error fetching data: ' + error);
+                        });
+            });
+        }
+
+    </script>
+
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+        }
+
+        input:invalid ~ .error-message {
+            display: block;
+        }
+
+    </style>
+
+
+</head>
+<body onload="initMap()">
+<main style="padding-bottom: 2rem">
+    <div class="container">
+        <div class="row pt-4">
+            <div class="col-md-6">
+                <img src="public/imagenes/preguntados-home.jpg" alt="Imagen de bienvenida" width="100%"
+                     style="object-fit: contain">
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <div>
+                    <h1 class="mt-3">Registro de Usuario</h1>
+                    <form action="/usuario/registro" method="post" enctype="multipart/form-data">
+                        <div class="mb-2">
+                            <label for="nombreCompleto" class="form-label">Nombre Completo:</label>
+                            <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto"
+                                   pattern="[A-Za-z\s]+" maxlength="100" title="Solo se permiten letras y espacios"
+                                   required>
+                            <div class="error-message">Por favor, ingresa solo letras y espacios (máximo 100
+                                caracteres).
+                            </div>
+                        </div>
+
+                        <div class="form-container">
+                            <div class="mb-2">
+                                <label for="anioNacimiento" class="form-label">Año de Nacimiento:</label>
+                                <input type="number" class="form-control" id="anioNacimiento" name="anioNacimiento"
+                                       min="1900" max="2024" maxlength="4" required>
+                                <div class="error-message">Por favor, ingresa un año valido, entre 1900 y 2024.
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-2">
+                            <label for="sexo" class="form-label">Sexo:</label>
+                            <select class="form-select" id="sexo" name="sexo" required>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <div id="mapa" style="width:400px; height:250px;"></div>
+                        </div>
+
+                        <div class="mb-2">
+                            <input type="hidden" class="form-control" id="lat" name="lat">
+                        </div>
+
+                        <div class="mb-2">
+                            <input type="hidden" class="form-control" id="lng" name="lng">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="pais" class="form-label">País:</label>
+                            <input type="text" class="form-control" id="pais" name="pais" required readonly>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="ciudad" class="form-label">Ciudad:</label>
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" required readonly>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="mail" class="form-label">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="mail" name="mail" required>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
+                            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="foto" class="form-label">Foto de Perfil:</label>
+                            <input type="file" class="form-control" id="foto" name="foto">
+                        </div>
+
+                        {{#error}}
+                            <p style="font-size: .9rem; color: red">{{message}}</p>
+                        {{/error}}
+
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                    <div class="d-flex gap-2">
+                        <p>¿Ya sos miembro?</p>
+                        <a href="/PreguntadosPWII-main/vistalogin">Logueate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- <link rel="stylesheet" href="/TP-MiniPreguntados-MVC/MVC-2-2024/app/view/estilo/registroEstilo.css"> -->
+    <link rel="stylesheet" href="../public/css/registro.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="background-container"></div>
+<div class="container">
+    <h1>Formulario de Registro</h1>
+    <form action="/PreguntadosPWII-main/Usuario/registro" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nombreCompleto">Nombre Completo:</label>
+            <input type="text" id="nombreCompleto" class="form-control" name="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" class="form-control" name="fecha_nacimiento" required>
+        </div>
+
+        <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <select class="form-select" id="sexo" name="sexo" required>
+                <option value="">Selecciona una opción</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        <div id="map" style="height: 400px; margin-top: 15px;"></div> <!-- Ajusta la altura según sea necesario -->
+        <input type="hidden" id="latitude" name="latitude" value="{{latitudMapa}}">
+        <input type="hidden" id="longitude" name="longitude" value="{{longitudMapa}}">
+        <input type="hidden" id="ciudad" name="ciudad" value="{{ciudad}}">
+        <input type="hidden" id="pais" name="pais" value="{{pais}}">
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input class="form-control" type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input class="form-control" type="password" id="password" name="contrasenia" required autocomplete="new-password">
+        </div>
+        <div class="form-group">
+            <label for="repeatPassword">Repetir Contraseña:</label>
+            <input class="form-control" type="password" id="repeatPassword" name="repeatPassword"  required  autocomplete="new-password">
+
+        </div>
+        <div class="form-group">
+            <label for="username">Nombre de Usuario:</label>
+            <input class="form-control" type="text" id="username" name="nombre_usuario" required>
+        </div>
+        <div class="form-group">
+            <label for="profilePic">Foto de Perfil:</label>
+            <input class="form-control" type="file" id="fotoIMG"  name="fotoIMG" accept="image/*">
+        </div>
+        <button class="btn btn-primary col-12 mt-3" type="submit">Registrarse</button>
+        {{#success}}
+            <p>Gracias por registrarte. Revisa tu correo para activar tu cuenta.</p>
+        {{/success}}
+        {{#errors}}
+            <div class="alert alert-danger">
+                <ul>
+                    {{.}}
+                </ul>
+            </div>
+        {{/errors}}
+    </form>
+    <p>¿Ya sos miembro?</p>
+    <a href="/PreguntadosPWII-main/vistalogin">Logueate</a>
+</div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="../public/js/mapa.js" ></script>
+
+</body>
+</html>

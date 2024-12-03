@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista de Quiz</title>
+    <link rel="stylesheet" href="/TP-pw2-MiniPreguntados/app/view/estilo/preguntasEstilo.css">
+    <link rel="stylesheet" href="../public/css/preguntaPartida.css">
+
+</head>
+<body onload="mostrarFondo('{{categoria}}')">
+
+<div class="profile-container">
+    <!-- Contenedor de la foto de perfil y nombre -->
+    <div class="profile-pic-container">
+        <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+    </div>
+    <!-- Nombre del usuario -->
+    <h2 id="userName">{{nombre_usuario}}</h2>
+</div>
+
+<!-- Barra de progreso -->
+<!--<div id="timeContainer">
+
+    <h1 id="countdownText">Tiempo restante <span id="countdown">1</span> seg</h1>
+    <div id="progressBarContainer">
+        <div id="progressBar"></div>
+    </div>
+</div>-->
+<div class="container">
+    <div class="quiz-container">
+        <div class="question-card">
+            <h2>{{pregunta}}</h2>
+        </div>
+
+        <form id="formValidarRespuesta" action="/PreguntadosPWII-main/Partida/validarRespuesta" method="POST">
+            <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+            <input type="hidden" name="id_partida" value="{{id_partida}}">
+            <input id="tiempo" type="hidden" name="tiempo" value="1">
+
+            <div class="answer-card">
+                <label>
+                    <input type="radio" name="answer" value="{{opcion1}}">
+                    <span>{{opcion1}}</span>
+                </label>
+            </div>
+
+            <div class="answer-card">
+                <label>
+                    <input type="radio" name="answer" value="{{opcion2}}">
+                    <span>{{opcion2}}</span>
+                </label>
+            </div>
+
+            <div class="answer-card">
+                <label>
+                    <input type="radio" name="answer" value="{{opcion3}}">
+                    <span>{{opcion3}}</span>
+                </label>
+            </div>
+
+            <div class="answer-card">
+                <label>
+                    <input type="radio" name="answer" value="{{opcion4}}">
+                    <span>{{opcion4}}</span>
+                </label>
+            </div>
+            <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+            <input type="hidden" name="id_partida" value="{{id_partida}}">
+            <!--onclick="mostrarModalOpcionElegida('{{mostrarModal}}')"-->
+            <button id="enviarRespuesta"  class="btn btn-primary" type=submit >Enviar</button>
+        </form>
+        <div class="button-container">
+            <button class="btn btn-secondary" onclick="mostrarModalReportar()">Reportar pregunta</button>
+            <button class="btn btn-secondary">Usar trampa</button>
+            <button class="btn btn-secondary">Comprar trampa</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de pregunta correcta -->
+    <div class="modalCorrecto" id="modalCorrecto" style="display: none;">
+        <h2>Respuesta Correcta</h2>
+    </div>
+
+<!-- Modal de pregunta incorrecta -->
+<form action="/PreguntadosPWII-main/Partida/usuarioRespondioMal" method="post">
+    <div class="modalIncorrecto" id="modalIncorrecto" style="display: none;">
+        <div>
+            <h2>Respuesta Incorrecta</h2>
+            <h2>Fin de la partida</h2>
+
+            <button type="submit" >Cerrar</button>
+        </div>
+    </div>
+</form>
+
+<!-- Modal de reportar pregunta -->
+<div id="reportarPreguntaModal" class="modal" style="display: none;">
+    <div class="modal-content-reporte">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Seleccione el motivo del reporte</h2>
+        <!--        <form id="formReportarPregunta" action="index.php?page=preguntasPartida&action=reportarPregunta" method="POST">-->
+        <form id="formReportarPregunta" action="/PreguntadosPWII-main/Usuario/reportarPregunta" method="POST">
+
+            <select name="selectMotivo">
+                <option>Elija un opcion</option>
+                <option value="La pregunta mal formulada">La pregunta mal formulada</option>
+                <option value="La pregunta no tiene la respuesta correcta">La pregunta no tiene la respuesta correcta</option>
+                <option value="La pregunta no pertece a esta categoria">La pregunta no pertece a esta categoria</option>
+            </select>
+            <input type="hidden" id="tipoMotivo" name="motivoSeleccionado">
+            <input type="hidden" id="descripcion" name="descripcionSeleccionada">
+            <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+            <button class="botonReporte" type="submit">Enviar reporte</button>
+        </form>
+
+    </div>
+</div>
+<!-- Modal de temporalizador -->
+<div id="timeOverModal" class="modal">
+    <div class="modal-content-temporalizador">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>¡Tiempo Terminado!</h2>
+        <p>Se ha acabado el tiempo. Cierre este mensaje para continuar.</p>
+    </div>
+</div>
+
+
+
+
+<script src="../public/js/preguntaPartida.js" ></script>
+
+</body>
+</html>

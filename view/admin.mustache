@@ -1,0 +1,186 @@
+<!--<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Preguntados</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+    <link rel="stylesheet" href="../public/css/header.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.15/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="background-animation"></div>
+
+  Logo Section
+    <div class="logo-container">
+        <img src=https://i.imgur.com/AdRHbcF.png"  alt="Logo de la empresa" class="logo">
+    </div>
+    </div>
+
+    <nav class="header-nav">
+        <a href="../vistaLogin">
+            <button class="logout-button">Cerrar sesión</button>
+        </a>
+    </nav>
+
+    <div class="user-container">
+        <span class="username">{{nombre_usuario}}</span>
+        <div class="user-circle">
+            <img src="{{userImageUrl}}" alt="Imagen de perfil de {{username}}" class="user-image">
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <h1>🎮 Panel de Administración - Preguntados 🎮</h1>
+
+    <div class="stats-grid">
+        <button class="stat-button" onclick="showChart('playerChart')">Cantidad de Jugadores</button>
+        <button class="stat-button" onclick="showChart('gameChart')">Partidas Jugadas</button>
+        <button class="stat-button" onclick="showChart('questionChart')">Preguntas en Juego</button>
+        <button class="stat-button" onclick="showChart('createdQuestionChart')">Preguntas Creadas</button>
+        <button class="stat-button" onclick="showChart('newUserChart')">Usuarios Nuevos</button>
+        <button class="stat-button" onclick="showChart('correctAnswerChart')">% Respuestas Correctas</button>
+        <button class="stat-button" onclick="showChart('countryChart')">Usuarios por País</button>
+        <button class="stat-button" onclick="showChart('genderChart')">Usuarios por Sexo</button>
+        <button class="stat-button" onclick="showChart('genderChart')">Usuarios por Edad</button>
+
+        <a href="/tp-pw2-MiniPreguntados/app/Admin/obtenerUsuarioPorEdad" > <button class="stat-button" >Usuarios por Edad</button></a>
+    </div>
+
+    <div id="chartContainer" class="chart-container">
+        <div class="filter-container">
+            <label for="timeFilter">Filtrar por:</label>
+            <select id="timeFilter" onchange="updateChart()">
+                <option value="day">Día</option>
+                <option value="week">Semana</option>
+                <option value="month">Mes</option>
+                <option value="year">Año</option>
+            </select>
+        </div>
+        <canvas id="chart"></canvas>
+        <table id="dataTable">
+            <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <a href="/tp-pw2-MiniPreguntados/app/Admin/obtenerEstadisticasPreguntas1"> <button id="generatePDF">Generar PDF</button></a>
+
+</div>
+
+<script src="/TP-pw2-MiniPreguntados/app/view/js/admin.js" ></script>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Preguntados</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+    <link rel="stylesheet" href="../public/css/header.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.15/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="background-animation"></div>
+
+    <!-- Logo Section -->
+    <div class="logo-container">
+        <img src="https://i.imgur.com/AdRHbcF.png" alt="Logo de la empresa" class="logo">
+    </div>
+
+    <nav class="header-nav">
+        <a href="../vistaLogin">
+            <button class="logout-button">Cerrar sesión</button>
+        </a>
+    </nav>
+
+    <div class="user-container">
+        <span class="username">{{nombre_usuario}}</span>
+        <div class="user-circle">
+            <img src="{{userImageUrl}}" alt="Imagen de perfil de {{username}}" class="user-image">
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <h1>🎮 Panel de Administración - Preguntados 🎮</h1>
+
+    <div class="stats-grid">
+        <button class="stat-button" onclick="showChart('playerChart')">Cantidad de Jugadores</button>
+        <button class="stat-button" onclick="showChart('gameChart')">Partidas Jugadas</button>
+        <button class="stat-button" onclick="showChart('questionChart')">Preguntas en Juego</button>
+        <button class="stat-button" onclick="showChart('createdQuestionChart')">Preguntas Creadas</button>
+        <button class="stat-button" onclick="showChart('newUserChart')">Usuarios Nuevos</button>
+        <button class="stat-button" onclick="showChart('correctAnswerChart')">% Respuestas Correctas</button>
+        <button class="stat-button" onclick="showChart('countryChart')">Usuarios por País</button>
+        <button class="stat-button" onclick="showChart('genderChart')">Usuarios por Sexo</button>
+        <button class="stat-button" onclick="showChart('ageChart')">Usuarios por Edad</button>
+    </div>
+
+    <div id="chartContainer" class="chart-container" style="display: none;">
+        <h2 id="chartTitle"></h2>
+        <div class="filter-container">
+            <label for="timeFilter">Filtrar por:</label>
+            <select id="timeFilter" onchange="updateChart()">
+                <option value="day">Día</option>
+                <option value="week">Semana</option>
+                <option value="month">Mes</option>
+                <option value="year">Año</option>
+            </select>
+        </div>
+        <canvas id="chart"></canvas>
+        <table id="dataTable">
+            <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Table rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        <button id="generatePDF_playerChart" class="generate-pdf-button" onclick="generatePDF('playerChart')" style="display: none;">Generar PDF Cantidad de Jugadores</button>
+        <button id="generatePDF_gameChart" class="generate-pdf-button" onclick="generatePDF('gameChart')" style="display: none;">Generar PDF Partidas Jugadas</button>
+
+        <a href="/PreguntadosPWII-main/Admin/obtenerEstadisticasPreguntas">
+        <button id="generatePDF_questionChart" class="generate-pdf-button" onclick="generatePDF('questionChart')" style="display: none;">Generar PDF Preguntas en Juego</button>
+        </a>
+
+        <button id="generatePDF_createdQuestionChart" class="generate-pdf-button" onclick="generatePDF('createdQuestionChart')" style="display: none;">Generar PDF Preguntas Creadas</button>
+        <button id="generatePDF_newUserChart" class="generate-pdf-button" onclick="generatePDF('newUserChart')" style="display: none;">Generar PDF Usuarios Nuevos</button>
+        <button id="generatePDF_correctAnswerChart" class="generate-pdf-button" onclick="generatePDF('correctAnswerChart')" style="display: none;">Generar PDF % Respuestas Correctas</button>
+        <button id="generatePDF_countryChart" class="generate-pdf-button" onclick="generatePDF('countryChart')" style="display: none;">Generar PDF Usuarios por País</button>
+        <button id="generatePDF_genderChart" class="generate-pdf-button" onclick="generatePDF('genderChart')" style="display: none;">Generar PDF Usuarios por Sexo</button>
+
+        <a href="/PreguntadosPWII-main/Admin/obtenerUsuarioPorEdad" >
+        <button id="generatePDF_ageChart" class="generate-pdf-button" onclick="generatePDF('ageChart')" style="display: none;">Generar PDF Usuarios por Edad</button>
+        </a>
+    </div>
+</div>
+
+<script src="../public/js/admin.js"></script>
+
+</body>
+</html>

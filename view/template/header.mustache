@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preguntados</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+{{#logeado}}
+    <header>
+        <nav>
+            <div class="navLogo">
+                <div class="con-foto">
+                    <a href="/usuario/lobby"><img src="../../public/imagenes/logo-preguntados.png"></a>
+                </div>
+                <a href="/usuario/lobby"><p class="textoNav"> {{textoNav}}</p></a>
+            </div>
+            <div class="navUsuario">
+                <div class="con-foto">
+                    <a href="/usuario/perfil/">
+                        {{#foto}}
+                            <img src="../../public/imagenes/usuarios/{{foto}}" alt="user">
+                        {{/foto}}
+                        {{^foto}}
+                            <img src="../../public/imagenes/usuarios/profile-user.png" alt="user">
+                        {{/foto}}
+                    </a>
+                </div>
+
+                <div class="aNav">
+                    <a href="/usuario/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+{{/logeado}}
+</body>
+</html>
+
+

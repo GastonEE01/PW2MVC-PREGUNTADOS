@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* clase para clambiar el tamaño */
+.ruleta {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+.section {
+    stroke: #1b1616;
+    stroke-width: 0.5;
+}
+
+.bg-red-500 { fill: #f44336; }
+.bg-blue-500 { fill: #2196f3; }
+.bg-green-500 { fill: #4caf50; }
+.bg-yellow-500 { fill: #ffeb3b; }
+.bg-purple-500 { fill: #9c27b0; }
+.bg-orange-500 { fill: #ff9800; }
+
+.number {
+    position: absolute;
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+}
+
+.tirar-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.tirar-button:hover {
+    background-color: #e5e7eb;
+}
+
+.tirar-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+.close {
+    background-color: red;
+    color: black;
+    border: 5px solid black;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+    font-family: "Arial Black";
+}
+
+.close:hover {
+    background-color: darkred;
+}
+
+/* usuario + img perfil*/
+.profile-container {
+    display: flex; /* Usamos flex para alinear los elementos */
+    flex-direction: column; /* Cambiamos la dirección de la alineación a vertical */
+    align-items: center; /* Alinea la imagen y el nombre de manera centrada */
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.profile-pic-container {
+    flex-shrink: 0; /* Impide que la imagen se reduzca */
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Hace la imagen circular */
+}
+
+#userName {
+    margin-top: 10px; /* Espacio entre la imagen y el nombre */
+    font-size: 1.8rem;
+    margin: 0;
+}

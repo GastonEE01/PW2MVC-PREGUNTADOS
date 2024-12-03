@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego</title>
+    <link rel="stylesheet" href="/TP-pw2-MiniPreguntados/app/view/estilo/partidaEstilo.css">
+
+
+</head>
+<body>
+
+<div class="profile-container">
+    <!-- Contenedor de la foto de perfil y nombre -->
+    <div class="profile-pic-container">
+        <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+    </div>
+    <!-- Nombre del usuario -->
+    <h2 id="userName">{{nombre_usuario}}</h2>
+
+</div>
+<div class="container">
+    <div class="ruleta">
+        <svg viewBox="0 0 100 100">
+            <path d="M50,50 L100,50 A50,50 0 0,1 75,93.3 Z" class="section bg-red-500"></path> <!-- Deporte  -->
+            <path d="M50,50 L75,93.3 A50,50 0 0,1 25,93.3 Z" class="section bg-yellow-500"></path> <!-- Historia  -->
+            <path d="M50,50 L25,93.3 A50,50 0 0,1 0,50 Z" class="section bg-green-500"></path> <!-- Ciencia  -->
+            <path d="M50,50 L0,50 A50,50 0 0,1 25,6.7 Z" class="section bg-blue-500"></path> <!-- Geografia  -->
+            <path d="M50,50 L25,6.7 A50,50 0 0,1 75,6.7 Z" class="section bg-orange-500"></path> <!-- Arte -->
+            <path d="M50,50 L75,6.7 A50,50 0 0,1 100,50 Z" class="section bg-purple-500"></path> <!-- Cine  -->
+        </svg>
+        <div class="number" style="top: 15%; left: 50%;">Arte</div>
+        <div class="number" style="top: 30%; left: 80%;">Cine</div>
+        <div class="number" style="top: 70%; left: 80%;">Deportes</div>
+        <div class="number" style="top: 85%; left: 50%;">Historia</div>
+        <div class="number" style="top: 70%; left: 20%;">Ciencia</div>
+        <div class="number" style="top: 30%; left: 20%;">Geografía</div>
+        <a href="/PreguntadosPWII-main/Partida/mostrarPregunta?categoria={{categoria}}">
+        <button class="tirar-button">Tirar</button>
+        </a>
+        <a href="">
+
+            <button class="close">Volver</button>
+        </a>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwyQda8nS23uSuWZdqcdGqyaJLMVSWkOERvg&s');*/
+    background-image: url('https://i.imgur.com/5hlv3BM.png');
+    background-size: cover; /* La imagen cubre todo el fondo */
+    background-repeat: no-repeat; /* La imagen no se repite */
+    background-position: center; /* Centra la imagen */
+    z-index: -1; /* Coloca el contenedor detrás del contenido */
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #b32929;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #0a0808;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: "Arial Black";
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #333;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background: #555;
+}

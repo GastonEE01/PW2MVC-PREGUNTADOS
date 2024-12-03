@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../public/css/home.css">
+
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src=https://i.imgur.com/AdRHbcF.png"  alt="Logo de la empresa" class="logo">
+    </div>
+    <nav>
+        <div>
+            <nav>
+                <button class="nav-button" onclick="openRanking()">Clasificación</button>
+                <button class="nav-button" onclick="openPopup()">Crear una pregunta</button>
+                <a href="../vistaLogin">
+                    <button class="nav-button">Cerrar sesión</button>
+                </a>
+            </nav>
+
+            <div id="rankingPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close" onclick="closeRanking()">&times;</span>
+
+                    <h2>Ranking de los Mejores Jugadores</h2>
+                    <table>
+                        <thead>
+                        <tr>
+
+                            <th class="position">Posición</th>
+
+                            <th>Jugador</th>
+                            <th class="score">Puntaje Máximo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#puntajes}}
+                            <tr>
+                                <td class="position">{{position}}</td>
+
+                                <td>{{nombre_usuario}}</td>
+                                <td class="score">{{Puntuacion}}</td>
+                            </tr>
+                        {{/puntajes}}
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                    <span class="close" onclick="closePopup()">&times;</span>
+                    <h2>Crear Nueva Pregunta</h2>
+                    <form action="/PreguntadosPWII-main/Usuario/usuarioSugerirPregunta" method="POST">
+                        <label for="pregunta">Pregunta:</label>
+                        <input type="text" id="pregunta" name="pregunta" required>
+                        <label for="optionA">Opción A:</label>
+                        <input type="text" id="optionA" name="optionA" required>
+                        <label for="optionB">Opción B:</label>
+                        <input type="text" id="optionB" name="optionB" required>
+                        <label for="optionC">Opción C:</label>
+                        <input type="text" id="optionC" name="optionC" required>
+                        <label for="optionD">Opción D:</label>
+                        <input type="text" id="optionD" name="optionD" required>
+
+                        <label for="correctOption">Opción Correcta:</label>
+                        <select id="opcionCorrecta" name="opcionCorrecta" required>
+                            <option value="" disabled selected>Selecciona la opción correcta</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                        <label for="categoriaElegida">Categoria:</label>
+                        <select id="categoriaElegida" name="categoriaElegida" required>
+                            <option value="" disabled selected>Selecciona la opción correcta</option>
+                            <option value="Arte">Arte</option>
+                            <option value="Cine">Cine</option>
+                            <option value="Deportes">Deportes</option>
+                            <option value="Historia">Ciencia</option>
+                            <option value="Geografía">Geografía</option>
+                        </select>
+                        <button type="submit">Crear Pregunta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div >
+    </div>
+    <div class="profile-pic-container">
+        <a href="/PreguntadosPWII-main/Usuario/vistaPerfil">
+            <!--<img src="{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">-->
+            <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+        </a>
+        <h3 >{{nombre_usuario}}</h3>
+
+    </div>
+</header>
+
+<main>
+    <!-- Botón fijo para crear partida -->
+    <button id="crearPartidaButton" class="create-button" onclick="openModal('crearPartidaModal')">Crear Partida</button>
+
+    <!-- Modal para crear partida -->
+    <form action="/PreguntadosPWII-main/Partida/crearPartida" method="post">
+
+    <div id="crearPartidaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('crearPartidaModal')">&times;</span>
+            <h2>Crear Partida</h2>
+                <div class="user-section">
+                    <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+                    <h3>{{nombre_usuario}}</h3>
+                    <h3>{{id}}</h3>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción de la partida</label>
+                    <input type="text" id="descripcion" name="descripcion" placeholder="Escribe una descripción" required>
+                    <button class="join-button" type="submit">Crear partida</button>
+
+                </div>
+                <div>
+                    <button class="join-button" type="button" onclick="closeModal('crearPartidaModal')">Cancelar</button>
+                </div>
+        </div>
+    </div>
+    </form>
+
+
+    <!-- Lista de partidas -->
+    <div class="game-list">
+        {{#partidas}}
+            <div class="game-entry">
+                <img src="/PreguntadosPWII-main/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+                <div class="game-info">
+                    <h3>{{nombre_usuario}}</h3>
+                    <p>{{Descripcion}}</p>
+                </div>
+                <a href="/PreguntadosPWII-main/Partida/jugarPartida/{{ID}}">
+                    <button class="join-button">Empezar</button>
+                </a>
+            </div>
+        {{/partidas}}
+    </div>
+</main>
+
+<script src="../public/js/home.js" ></script>
+</body>
+</html>
