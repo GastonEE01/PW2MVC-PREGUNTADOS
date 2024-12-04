@@ -13,6 +13,7 @@
     include_once ("helper/Router.php");
     include_once ("helper/SenderEmailPHPMailer.php");
     include_once ("helper/descargar_pdf.php");
+include_once ("helper/GeneradorQR.php");
 
 include_once("controller/AdminController.php");
     include_once("model/AdminModel.php");
@@ -37,7 +38,7 @@ include_once("controller/AdminController.php");
         }
         public static function getUsuarioController()
         {
-            return new UsuarioController(self::getUsuarioModel(), self::getPresenter(), self::getPartidaModel(), self::getSenderEmailPHPMailer());
+            return new UsuarioController(self::getUsuarioModel(), self::getPresenter(), self::getPartidaModel(), self::getSenderEmailPHPMailer(),self::getGeneradorQR());
 
         }
         private static function getUsuarioModel()
@@ -50,6 +51,10 @@ include_once("controller/AdminController.php");
             return new SenderEmailPHPMailer();
         }
 
+        private static function getGeneradorQR()
+        {
+            return new GeneradorQR();
+        }
         public static function getEditorController()
         {
             return new EditorController(self::getEditorModel(), self::getPresenter(),self::getUsuarioModel());

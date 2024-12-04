@@ -25,13 +25,10 @@
             <div class="profile-layout">
                 <div class="profile-image">
                     <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="rounded-image">
-
+                    <h2 class="player-name">{{nombre_usuario}}</h2>
                 </div>
                 <div class="profile-info">
-                    <h2 class="player-name">{{nombre_usuario}}</h2>
                     <p class="player-location"><i class="fas fa-map-marker-alt"></i> Ubicación:</p>
-                    <!--<div id="map" style="height: 400px; margin-top: 15px;"></div> --><!-- Contenedor para el mapa -->
-                    <!-- <div id="map"></div> Contenedor para el mapa -->
                     <section>
                         <div id="map" style="height: 400px; width: 100%;"></div>
 
@@ -61,18 +58,13 @@
                 </div>
             </div>
             <div class="qr-code">
-                <img src="/qr_codes/usuario_qr.png" alt="Código QR">
+                <img src="../{{qrUsuario}}" alt="Código QR" >
                 <p>Escanea para más info</p>
-                <a href="qr-code.php">
-                    <button class="defeat close"  >verQR</button>
-                </a>
             </div>
         </div>
     </div>
 </div>
-<!--
-<script src="/TP-pw2-MiniPreguntados/app/view/js/mapa.js"></script>
-<script src="/TP-pw2-MiniPreguntados/app/view/js/mapa.js"></script>-->
+
 <script src="../public/js/perfil.js" ></script>
 </body>
 </html>

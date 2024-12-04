@@ -13,13 +13,15 @@ class UsuarioController
     private $presenter;
     private $modelPartida;
     private $senderEmailPHPMailer;
+    private $generadorQR;
 
-    public function __construct($model, $presenter,$modelPartida,$senderEmailPHPMailer)
+    public function __construct($model, $presenter,$modelPartida,$senderEmailPHPMailer,$generadorQR)
     {
         $this->model = $model;
         $this->presenter = $presenter;
         $this->modelPartida = $modelPartida;
-       $this->senderEmailPHPMailer = $senderEmailPHPMailer;
+        $this->senderEmailPHPMailer = $senderEmailPHPMailer;
+        $this->generadorQR = $generadorQR;
 
     }
 
@@ -85,14 +87,16 @@ class UsuarioController
         $id_usuario = $sesion->obtenerUsuarioID();
         $pais = $user['pais'] ?? 'Invitado';
         $ciudad = $user['ciudad'] ?? 'Invitado';
-        $fotoIMG = $user['fotoIMG'] ?? 'Invitado';
+        $nombre_usuario = $user['nombre_usuario'] ?? 'Invitado';
+       // $fotoIMG = $user['fotoIMG'] ?? 'Invitado';
+        $gmail= $user['email'] ?? 'Invitado';
         $longitudMapa = $user['latitudMapa'] ?? 'Invitado';
         $latitudMapa = $user['longitudMapa'] ?? 'Invitado';
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
-      //  $latitudMapaNumero = in
         $partidas = $this->modelPartida->obtenerPartidasFinalizada($user['id']);
+        $generarQR = $this->generadorQR->generarQRUsuario($nombre_usuario,$ciudad,$pais,$gmail);
         $this->presenter->render('view/perfil.mustache', ['partidas' => $partidas,
-            'nombre_usuario' => $user['nombre_usuario'],
+            'nombre_usuario' => $nombre_usuario,
             'id' => $id_usuario,
             'pais' => $pais,
             'ciudad' => $ciudad,
@@ -100,6 +104,8 @@ class UsuarioController
             'longitudMapa' => $longitudMapa,
             'latitudMapa' => $latitudMapa,
             'Path_img_perfil' => $fotoIMG,
+            'qrUsuario'=> $generarQR,
+            'email'=> $gmail,
 
         ]);
     }

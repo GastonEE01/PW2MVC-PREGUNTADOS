@@ -34,6 +34,7 @@ class ManejoSesiones
             'latitudMapa'  => $usuario['latitudMapa'],
             'longitudMapa'  => $usuario['longitudMapa'],
             'Path_img_perfil'  => $usuario['Path_img_perfil'],
+            'email'  => $usuario['email']
 
         ];
     }
