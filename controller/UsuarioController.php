@@ -2,11 +2,8 @@
 require 'libs/PHPMailer/src/Exception.php';
 require 'libs/PHPMailer/src/PHPMailer.php';
 require 'libs/PHPMailer/src/SMTP.php';
-include_once 'helper/SenderEmailPHPMailer.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 class UsuarioController
 {
     private $model;
@@ -39,14 +36,14 @@ class UsuarioController
             $this->presenter->render("view/home.mustache", ['error' => true, 'message' => $resultado['message']]);
         }
     }
-
+/*
     public function logout()
     {
         $this->model->logout();
         header("location:/");
         exit();
     }
-
+*/
     public function vistaRegistro()
     {
         $this->presenter->render("view/registro.mustache");
@@ -57,10 +54,6 @@ class UsuarioController
         $this->presenter->render("view/login.mustache");
     }
 
-    public function vistaAdmin()
-    {
-        $this->presenter->render("view/admin.mustache");
-    }
 
     public function vistaHome()
     {
@@ -88,7 +81,6 @@ class UsuarioController
         $pais = $user['pais'] ?? 'Invitado';
         $ciudad = $user['ciudad'] ?? 'Invitado';
         $nombre_usuario = $user['nombre_usuario'] ?? 'Invitado';
-       // $fotoIMG = $user['fotoIMG'] ?? 'Invitado';
         $gmail= $user['email'] ?? 'Invitado';
         $longitudMapa = $user['latitudMapa'] ?? 'Invitado';
         $latitudMapa = $user['longitudMapa'] ?? 'Invitado';
@@ -134,7 +126,7 @@ class UsuarioController
         }
 
         if (!empty($errors)) {
-            echo $this->presenter->render('registro', ['errors' => $errors]);
+            echo $this->presenter->render('view/registro.mustache', ['errors' => $errors]);
             return;
         }
         $data['contrasenia'] = password_hash($data['contrasenia'], PASSWORD_DEFAULT);
@@ -264,6 +256,8 @@ class UsuarioController
         $idUsuario = $usuario['id'] ?? 'Invitado';
         $user = $sesion->obtenerUsuario();
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+        $id_partida = isset($_POST['id_partida']) ? $_POST['id_partida'] : null;
+        $actualizarPartida = $this->modelPartida->actualizarPartida($id_partida);
 
         if (isset($_POST['descripcionSeleccionada']) && isset($_POST['id_pregunta'])) {
 
@@ -284,7 +278,6 @@ class UsuarioController
             $this->model->crearReportePregunta($data, $idUsuario);
             $partidas = $this->modelPartida->obtenerPartidasEnCurso($usuario['id']);
             $mejoresPuntajesJugador = $this->modelPartida->trearMejoresPuntajesJugadores();
-
             echo $this->presenter->render("view/home.mustache", ['partidas' => $partidas,
                 'partidas' => $partidas,
                 'puntajes' => $mejoresPuntajesJugador,
@@ -296,4 +289,24 @@ class UsuarioController
             echo "Faltan datos en el formulario.";
         }
     }
+
+    public function tiempoAcabado(){
+        $sesion = new ManejoSesiones();
+        $usuario = $sesion->obtenerUsuario();
+        $id_usuario = $sesion->obtenerUsuarioID();
+        $idUsuario = $usuario['id'] ?? 'Invitado';
+        $user = $sesion->obtenerUsuario();
+        $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+        $id_partida = isset($_POST['id_partida']) ? $_POST['id_partida'] : null;
+        $actualizarPartida = $this->modelPartida->actualizarPartida($id_partida);
+        $partidas = $this->modelPartida->obtenerPartidasEnCurso($usuario['id']);
+        $mejoresPuntajesJugador = $this->modelPartida->trearMejoresPuntajesJugadores();
+        echo $this->presenter->render("view/home.mustache", ['partidas' => $partidas,
+            'partidas' => $partidas,
+            'puntajes' => $mejoresPuntajesJugador,
+            'nombre_usuario' => $user['nombre_usuario'],
+            'Path_img_perfil' => $fotoIMG,
+        ]);
+    }
+
 }

@@ -9,24 +9,34 @@
 
 </head>
 <body onload="mostrarFondo('{{categoria}}')">
+<!-- Sonido de fondo -->
+<audio id="background-audio" autoplay loop>
+    <source src="/PW2MVC-PREGUNTADOS/public/sonido/sonidoHome2.mp3" type="audio/mpeg">
+</audio>
 
+<!-- Contenedor principal -->
 <div class="profile-container">
+
     <!-- Contenedor de la foto de perfil y nombre -->
     <div class="profile-pic-container">
-        <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+        <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil"  class="profile-pic">
+        <img id="mute-icon" src="/PW2MVC-PREGUNTADOS/public/imagenes/sonido/sonido.png" alt="Sonido activado" width="50" height="50" class="sonido" onclick="apagarSonidoFondoYTemporalizador()">
+        <h2 id="userName" >{{nombre_usuario}}</h2>
+
     </div>
-    <!-- Nombre del usuario -->
-    <h2 id="userName">{{nombre_usuario}}</h2>
+
 </div>
 
-<!-- Barra de progreso -->
-<!--<div id="timeContainer">
-
+<!-- Barra de progreso con sonido del temporalizador -->
+<div id="timeContainer">
     <h1 id="countdownText">Tiempo restante <span id="countdown">1</span> seg</h1>
     <div id="progressBarContainer">
         <div id="progressBar"></div>
     </div>
-</div>-->
+    <audio id="timer-audio">
+        <source src="/PW2MVC-PREGUNTADOS/public/sonido/tic_tac.wav" type="audio/mpeg">
+    </audio>
+</div>
 <div class="container">
     <div class="quiz-container">
         <div class="question-card">
@@ -65,11 +75,9 @@
                     <span>{{opcion4}}</span>
                 </label>
             </div>
-            <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
-            <input type="hidden" name="id_partida" value="{{id_partida}}">
-            <!--onclick="mostrarModalOpcionElegida('{{mostrarModal}}')"-->
-            <button id="enviarRespuesta"  class="btn btn-primary" type=submit >Enviar</button>
+            <button id="enviarRespuesta"  class="btn-primary" type=submit >Enviar</button>
         </form>
+
         <div class="button-container">
             <button class="btn btn-secondary" onclick="mostrarModalReportar()">Reportar pregunta</button>
             <button class="btn btn-secondary">Usar trampa</button>
@@ -79,11 +87,11 @@
 </div>
 
 <!-- Modal de pregunta correcta -->
-    <div class="modalCorrecto" id="modalCorrecto" style="display: none;">
+  <!--  <div class="modalCorrecto" id="modalCorrecto" style="display: none;">
         <h2>Respuesta Correcta</h2>
     </div>
 
-<!-- Modal de pregunta incorrecta -->
+ Modal de pregunta incorrecta
 <form action="/PW2MVC-PREGUNTADOS/Partida/usuarioRespondioMal" method="post">
     <div class="modalIncorrecto" id="modalIncorrecto" style="display: none;">
         <div>
@@ -93,14 +101,13 @@
             <button type="submit" >Cerrar</button>
         </div>
     </div>
-</form>
+</form>-->
 
 <!-- Modal de reportar pregunta -->
 <div id="reportarPreguntaModal" class="modal" style="display: none;">
     <div class="modal-content-reporte">
         <span class="close" id="closeModal">&times;</span>
         <h2>Seleccione el motivo del reporte</h2>
-        <!--        <form id="formReportarPregunta" action="index.php?page=preguntasPartida&action=reportarPregunta" method="POST">-->
         <form id="formReportarPregunta" action="/PW2MVC-PREGUNTADOS/Usuario/reportarPregunta" method="POST">
 
             <select name="selectMotivo">
@@ -112,6 +119,8 @@
             <input type="hidden" id="tipoMotivo" name="motivoSeleccionado">
             <input type="hidden" id="descripcion" name="descripcionSeleccionada">
             <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+            <input type="hidden" name="id_partida" value="{{id_partida}}">
+
             <button class="botonReporte" type="submit">Enviar reporte</button>
         </form>
 
@@ -119,17 +128,22 @@
 </div>
 <!-- Modal de temporalizador -->
 <div id="timeOverModal" class="modal">
+    <form id="formReportarPregunta" action="/PW2MVC-PREGUNTADOS/Usuario/tiempoAcabado" method="POST">
     <div class="modal-content-temporalizador">
-        <span class="close" id="closeModal">&times;</span>
+        <button class="close" id="closeModal">&times;</button>
         <h2>¡Tiempo Terminado!</h2>
         <p>Se ha acabado el tiempo. Cierre este mensaje para continuar.</p>
     </div>
+        <input type="hidden" name="id_partida" value="{{id_partida}}">
+
+    </form>
+
 </div>
 
 
 
-
 <script src="../public/js/preguntaPartida.js" ></script>
+<script src="/PW2MVC-PREGUNTADOS/public/js/sonido.js" ></script>
 
 </body>
 </html>

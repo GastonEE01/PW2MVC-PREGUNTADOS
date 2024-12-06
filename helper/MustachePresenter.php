@@ -21,6 +21,7 @@ class MustachePresenter{
         $contentAsString = file_get_contents(  $this->partialsPathLoader .'/header.mustache');
         if(isset($contentFile)){
             $contentAsString .= file_get_contents( $contentFile );
+
         }
         $contentAsString .= file_get_contents($this->partialsPathLoader . '/footer.mustache');
         return $this->mustache->render($contentAsString, $data);

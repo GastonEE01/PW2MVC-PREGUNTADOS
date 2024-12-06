@@ -39,57 +39,60 @@
 <div class="container">
     <h1>🎮 Panel de Administración - Preguntados 🎮</h1>
 
-    <div class="stats-grid">
-        <button class="stat-button" onclick="showChart('playerChart')">Cantidad de Jugadores</button>
-        <button class="stat-button" onclick="showChart('gameChart')">Partidas Jugadas</button>
-        <button class="stat-button" onclick="showChart('questionChart')">Preguntas en Juego</button>
-        <button class="stat-button" onclick="showChart('createdQuestionChart')">Preguntas Creadas</button>
-        <button class="stat-button" onclick="showChart('newUserChart')">Usuarios Nuevos</button>
-        <button class="stat-button" onclick="showChart('correctAnswerChart')">% Respuestas Correctas</button>
-        <button class="stat-button" onclick="showChart('countryChart')">Usuarios por País</button>
-        <button class="stat-button" onclick="showChart('genderChart')">Usuarios por Sexo</button>
-        <button class="stat-button" onclick="showChart('ageChart')">Usuarios por Edad</button>
-    </div>
-
-    <div id="chartContainer" class="chart-container" style="display: none;">
-        <h2 id="chartTitle"></h2>
-        <div class="filter-container">
-            <label for="timeFilter">Filtrar por:</label>
-            <select id="timeFilter" onchange="updateChart()">
-                <option value="day">Día</option>
-                <option value="week">Semana</option>
-                <option value="month">Mes</option>
-                <option value="year">Año</option>
-            </select>
+    <div class="dashboard-grid">
+        <div class="stats-grid">
+            <button class="stat-button" onclick="showChart('playerChart')">Cantidad de Jugadores</button>
+            <button class="stat-button" onclick="showChart('gameChart')">Partidas Jugadas</button>
+            <button class="stat-button" onclick="showChart('questionChart')">Preguntas en Juego</button>
+            <button class="stat-button" onclick="showChart('createdQuestionChart')">Preguntas Creadas</button>
+            <button class="stat-button" onclick="showChart('newUserChart')">Usuarios Nuevos</button>
+            <button class="stat-button" onclick="showChart('correctAnswerChart')">% Respuestas Correctas</button>
+            <button class="stat-button" onclick="showChart('countryChart')">Usuarios por País</button>
+            <button class="stat-button" onclick="showChart('genderChart')">Usuarios por Sexo</button>
+            <button class="stat-button" onclick="showChart('ageChart')">Usuarios por Edad</button>
         </div>
-        <canvas id="chart"></canvas>
-        <table id="dataTable">
-            <thead>
-            <tr>
-                <th>Categoría</th>
-                <th>Valor</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Table rows will be inserted here by JavaScript -->
-            </tbody>
-        </table>
-        <button id="generatePDF_playerChart" class="generate-pdf-button" onclick="generatePDF('playerChart')" style="display: none;">Generar PDF Cantidad de Jugadores</button>
-        <button id="generatePDF_gameChart" class="generate-pdf-button" onclick="generatePDF('gameChart')" style="display: none;">Generar PDF Partidas Jugadas</button>
 
-        <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerEstadisticasPreguntas">
-        <button id="generatePDF_questionChart" class="generate-pdf-button" onclick="generatePDF('questionChart')" style="display: none;">Generar PDF Preguntas en Juego</button>
-        </a>
+        <div id="chartContainer" class="chart-container">
+            <h2 id="chartTitle"></h2>
+            <div class="filter-container">
+                <label for="timeFilter">Filtrar por:</label>
+                <select id="timeFilter" onchange="updateChart()">
+                    <option value="day">Día</option>
+                    <option value="week">Semana</option>
+                    <option value="month">Mes</option>
+                    <option value="year">Año</option>
+                </select>
+            </div>
 
-        <button id="generatePDF_createdQuestionChart" class="generate-pdf-button" onclick="generatePDF('createdQuestionChart')" style="display: none;">Generar PDF Preguntas Creadas</button>
-        <button id="generatePDF_newUserChart" class="generate-pdf-button" onclick="generatePDF('newUserChart')" style="display: none;">Generar PDF Usuarios Nuevos</button>
-        <button id="generatePDF_correctAnswerChart" class="generate-pdf-button" onclick="generatePDF('correctAnswerChart')" style="display: none;">Generar PDF % Respuestas Correctas</button>
-        <button id="generatePDF_countryChart" class="generate-pdf-button" onclick="generatePDF('countryChart')" style="display: none;">Generar PDF Usuarios por País</button>
-        <button id="generatePDF_genderChart" class="generate-pdf-button" onclick="generatePDF('genderChart')" style="display: none;">Generar PDF Usuarios por Sexo</button>
+            <canvas id="chart"></canvas>
+            <table id="dataTable">
+                <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Table rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
 
-        <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerUsuarioPorEdad" >
-        <button id="generatePDF_ageChart" class="generate-pdf-button" onclick="generatePDF('ageChart')" style="display: none;">Generar PDF Usuarios por Edad</button>
-        </a>
+        <div class="pdf-buttons">
+            <button id="generatePDF_playerChart" class="generate-pdf-button" onclick="generatePDF('playerChart')">Generar PDF Cantidad de Jugadores</button>
+            <button id="generatePDF_gameChart" class="generate-pdf-button" onclick="generatePDF('gameChart')">Generar PDF Partidas Jugadas</button>
+            <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerEstadisticasPreguntas">
+                <button id="generatePDF_questionChart" class="generate-pdf-button" onclick="generatePDF('questionChart')">Generar PDF Preguntas en Juego</button>
+            </a>
+            <button id="generatePDF_createdQuestionChart" class="generate-pdf-button" onclick="generatePDF('createdQuestionChart')">Generar PDF Preguntas Creadas</button>
+            <button id="generatePDF_newUserChart" class="generate-pdf-button" onclick="generatePDF('newUserChart')">Generar PDF Usuarios Nuevos</button>
+            <button id="generatePDF_correctAnswerChart" class="generate-pdf-button" onclick="generatePDF('correctAnswerChart')">Generar PDF % Respuestas Correctas</button>
+            <button id="generatePDF_countryChart" class="generate-pdf-button" onclick="generatePDF('countryChart')">Generar PDF Usuarios por País</button>
+            <button id="generatePDF_genderChart" class="generate-pdf-button" onclick="generatePDF('genderChart')">Generar PDF Usuarios por Sexo</button>
+            <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerUsuarioPorEdad">
+                <button id="generatePDF_ageChart" class="generate-pdf-button" onclick="generatePDF('ageChart')">Generar PDF Usuarios por Edad</button>
+            </a>
+        </div>
     </div>
 </div>
 

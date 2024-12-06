@@ -50,8 +50,7 @@ class AdminController
         $font = 5;  // Tamaño de la fuente
 
 // Definir etiquetas para las barras
-        $labels = ['niños'.$data[0].'%','adolecntes'.$data[1].'%','adultos'.$data[2].'%','ancianos'.$data[3].'%'];  // Etiquetas de las barras
-
+        $labels = ['niños'.$data[0].'%','adolescentes'.$data[1].'%','adultos'.$data[2].'%','ancianos'.$data[3].'%'];  // Etiquetas de las barras
         $x = $barSpacing;
         foreach ($data as $index => $value) {
             $barHeight = $value * 5; // Escalar los valores, ajusta el factor si es necesario
@@ -60,13 +59,14 @@ class AdminController
             $x += $barWidth + $barSpacing;
         }
 // Guardar la imagen como archivo
-        $filePath = __DIR__ . '/../public/imagenes/grafico/chart.png';
+        $filePath = __DIR__ . '/../public/imagenes/grafico/graficoUsuarioPorEdad.png';
         imagepng($image, $filePath);
         imagedestroy($image);
-
         $this->generarPDF->descargarPDF();
 
+      //  $this->generarPDF->descargarPDFUsuarioPorEdad($data[0],$data[1],$data[2],$data[3]);
     }
+
 
     public function obtenerEstadisticasPreguntas() {
         // Datos ficticios que podrían venir de una consulta a la base de datos
@@ -106,7 +106,7 @@ class AdminController
         }
 
 // Guardar la imagen como archivo
-        $filePath = __DIR__ . '/../public/imagenes/grafico/chart.png';
+        $filePath = __DIR__ . '/../public/imagenes/grafico/grafcioEstadisticasPreguntas.png';
         imagepng($image, $filePath);
         imagedestroy($image);
 

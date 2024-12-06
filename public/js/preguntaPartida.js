@@ -1,6 +1,6 @@
 function mostrarFondo(categoria) {
     var colorFondo;
-    console.log('Categoria:', categoria); // Verificar el valor de la categoría
+    console.log('Categoria:', categoria);
 
     if (categoria == 'Arte') {
         colorFondo = '#ff9800';
@@ -19,10 +19,9 @@ function mostrarFondo(categoria) {
 
 
 }
-
 let countdownElement = document.getElementById('countdown');
 let progressBar = document.getElementById('progressBar');
-let totalTime = 15; // Tiempo total en segundos
+let totalTime = 30; // Tiempo total en segundos
 let timeLeft = totalTime;
 let modal = document.getElementById('timeOverModal');
 let closeModal = document.getElementById('closeModal');
@@ -40,9 +39,6 @@ let countdownInterval = setInterval(() => {
         clearInterval(countdownInterval); // Detener el temporizador
 
         // Reproducir el sonido
-        // let alertSound = document.getElementById('alertSound');
-        //  alertSound.play();
-
         modal.style.display = "flex";
 
         closeModal.onclick = function() {
@@ -50,14 +46,23 @@ let countdownInterval = setInterval(() => {
             modal.style.display = "none"; // Cerrar el modal
         };
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
+        closeModal.onclick = function() {
                 window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
                 modal.style.display = "none"; // Cerrar el modal
-            }
         };
     }
 }, 1000); // Actualizar cada segundo
+
+// Función para cerrar el modal
+document.getElementById("closeModal").onclick = function() {
+    modal.style.display = "none";
+};
+
+function reportarPregunta() {
+    let motivo = document.getElementById("motivoReporte").value;
+    alert("Pregunta reportada con motivo: " + motivo);
+    modal.style.display = "none";
+}
 
 
 function mostrarModalReportar() {
@@ -69,94 +74,12 @@ document.getElementById("closeModal").onclick = function() {
     document.getElementById("reportarPreguntaModal").style.display = "none";
 }
 
-// Función para reportar la pregunta (puedes ajustarla según tu lógica)
 function reportarPregunta() {
     let motivo = document.getElementById("motivoReporte").value;
     alert("Pregunta reportada con motivo: " + motivo);
     // Aquí podrías agregar la lógica para enviar el reporte al servidor
-    document.getElementById("reportarPreguntaModal").style.display = "none"; // Cerrar el modal después de enviar el reporte
+    document.getElementById("reportarPreguntaModal").style.display = "none";
 }
-
-/*
-const opcionElegida = document.getElementById('opcionElegida');
-const mostrarModalCorrecto = document.getElementById('modalCorrecto').style.display = "none";
-const mostrarModalInCorrecto = document.getElementById('modalCorrecto').style.display = "none";
-
-if(opcionElegida == 'correcto'){
-      document.getElementById('modalCorrecto').style.display = "block";
-}else if(opcionElegida == 'incorrecto'){
-     document.getElementById('modalCorrecto').style.display = "block";
-}*/
-
-// Función para mostrar el modal basado en la respuesta
-function mostrarModalResultado(esCorrecto) {
-    if (esCorrecto) {
-        document.getElementById("modalCorrecto").style.display = "block";
-        mostrarModalCorrecto();
-    } else if(!esCorrecto){
-        document.getElementById("modalIncorrecto").style.display = "block";
-        mostrarModalIncorrecto();
-    }
-
-    // Opcional: Ocultar el modal automáticamente después de unos segundos
-    setTimeout(() => {
-        document.getElementById("modalCorrecto").style.display = "none";
-       // document.getElementById("modalIncorrecto").style.display = "none";
-    }, 3000); // 3 segundos
-}
-
-document.getElementById("formValidarRespuesta").onsubmit = function(event) {
-    event.preventDefault(); // Evitar recargar la página
-
-    // Simulación de respuesta del servidor
-    const esCorrecto = Math.random() > 0.5; // Cambia esto por tu lógica real
-
-    // Mostrar el modal según el resultado
-    mostrarModalResultado(esCorrecto);
-};
-
-function mostrarModalCorrecto() {
-    const modalCorrecto = document.getElementById('modalCorrecto');
-    modalCorrecto.style.display = 'flex'; // Mostrar el modal
-
-    // Espera 3 segundos y redirige a la ruleta
-    setTimeout(() => {
-        window.location.href = '/PW2MVC-PREGUNTADOS/Partida/usuarioRespondioBien';
-    }, 3000);
-}
-
-// Función para mostrar el modal
-function mostrarModalIncorrecto() {
-    const modalIncorrecto = document.getElementById('modalIncorrecto');
-    modalIncorrecto.style.display = 'flex'; // Mostrar el modal
-}
-
-// Función para cerrar el modal
-function cerrarModal() {
-    const modalIncorrecto = document.getElementById('modalIncorrecto');
-    modalIncorrecto.style.display = 'none'; // Ocultar el modal
-}
-
-
-
-
-/*
-function mostrarModalOpcionElegida(mostrarModal) {
-    const mostrarModalCorrecto = document.getElementById('modalCorrecto');
-    const mostrarModalInCorrecto = document.getElementById('modalIncorrecto');
-
-    if(mostrarModal === 'correcto'){
-        mostrarModalCorrecto.style.display = "block";
-     //   mostrarModalInCorrecto.style.display = "none";
-    } else if(mostrarModal === 'incorrecto'){
-        //mostrarModalCorrecto.style.display = "none";
-        mostrarModalInCorrecto.style.display = "block";
-    } else if(mostrarModal === 'NoEligioOpcion'){
-        mostrarModalCorrecto.style.display = "none";
-        mostrarModalInCorrecto.style.display = "none";
-    }
-
-}*/
 
 
 

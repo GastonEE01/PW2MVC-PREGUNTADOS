@@ -8,19 +8,26 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
+<audio id="background-audio" autoplay loop>
+    <source src="/PW2MVC-PREGUNTADOS/public/sonido/sonidoHome1.mp3" type="audio/mpeg">
+</audio>
 <div class="container">
     <div class="card">
+
         <div class="card-header">
+            <img id="mute-icon" src="../public/imagenes/sonido/sonido.png" alt="Sonido activado" width="50" height="50"  onclick="apagarSonido()">
+
             <div class="close">
                 <a href="vistaHome">
-                    <button class="defeat close"  >X</button>
+                    <button class="defeat">X</button>
                 </a>
             </div>
+
         </div>
+
         <div class="card-content">
             <div class="profile-layout">
                 <div class="profile-image">
@@ -64,7 +71,7 @@
         </div>
     </div>
 </div>
-
+<script src="../public/js/sonido.js" ></script>
 <script src="../public/js/perfil.js" ></script>
 </body>
 </html>

@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/PW2MVC-PREGUNTADOS/public/css/partida.css">
-
     <title>Juego</title>
+    <audio id="background-audio" autoplay loop>
+        <source src="/PW2MVC-PREGUNTADOS/public/sonido/sonidoHome2.mp3" type="audio/mpeg">
+    </audio>
 </head>
 <body>
-
 <div class="profile-container">
+
     <!-- Contenedor de la foto de perfil y nombre -->
     <div class="profile-pic-container">
-        <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil" class="profile-pic">
+        <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil"  class="profile-pic">
+        <img id="mute-icon" src="/PW2MVC-PREGUNTADOS/public/imagenes/sonido/sonido.png" alt="Sonido activado" width="50" height="50" class="sonido" onclick="apagarSonidoPartida()">
+        <h2 id="userName">{{nombre_usuario}}</h2>
     </div>
     <!-- Nombre del usuario -->
-    <h2 id="userName">{{nombre_usuario}}</h2>
-
 </div>
+
 <div class="container">
     <div class="ruleta">
         <svg viewBox="0 0 100 100">
@@ -43,7 +46,8 @@
         </a>
     </div>
 </div>
-
-
 </body>
+<script src="../public/js/sonido.js" ></script>
+
+<script src="/PW2MVC-PREGUNTADOS/public/js/sonido.js" ></script>
 </html>

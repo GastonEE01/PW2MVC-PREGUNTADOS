@@ -54,9 +54,11 @@ const data = {
         { name: 'Otro', value: 20 },
     ],
     ageChart: [
-        { name: 'Menores', value: 50 },
-        { name: 'Adultos', value: 300 },
-        { name: 'Jubilados', value: 50 },
+        { name: 'Niños', value: 50 },
+        { name: 'Adolescentes', value: 300 },
+        { name: 'Adultos', value: 50 },
+        { name: 'Ancianos', value: 50 },
+
     ],
 };
 

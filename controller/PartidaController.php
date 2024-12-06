@@ -42,12 +42,12 @@ class PartidaController
         $id_partida = end($parts);
 
         // Validar que sea un número o manejar errores
-        $id_partida = is_numeric($id_partida) ? $id_partida : null;
+        //$id_partida = is_numeric($id_partida) ? $id_partida : null;
         $sesion = new ManejoSesiones();
         $usuario = $sesion->obtenerUsuario();
         $username = $usuario['nombre_usuario'] ?? 'Invitado';
         $fotoIMG = $usuario['Path_img_perfil'] ?? 'Invitado';
-
+        $sesion->guardarIdPartida($id_partida);
         $categoria=$this->model-> obtenerCategoriaAlAzar();
 
         echo $this->presenter->render("view/partida.mustache", [
@@ -61,16 +61,18 @@ class PartidaController
     }
 
     public function mostrarPregunta() {
-        $id_partida = isset($_GET['id_partida']) ? $_GET['id_partida'] : null;
         $sesion = new ManejoSesiones();
         $user = $sesion->obtenerUsuario();
+        $id_partida = $sesion->obtenerIdPartida();
         $username = $user['nombre_usuario'] ?? 'Invitado';
+
+      //  $id_partida = isset($_GET['id_partida']) ? $_GET['id_partida'] : null;
         $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : null;
         $nivelUsuario = $this->model->verificarNivelDeUsuario($user['id']);
         $pregunta = $this->model->buscarPregunta($categoria, $nivelUsuario);
         $opcion = $this->model->traerRespuestasDePregunta($pregunta['ID']);
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
-        $mostrarModal = "NoEligioOpcion";
+        //$mostrarModal = "NoEligioOpcion";
 
         $data = [
             'pregunta' => $pregunta['Pregunta'],
@@ -82,37 +84,88 @@ class PartidaController
             'id_partida' => $id_partida,
             'categoria' => $categoria,
             'nombre_usuario' => $username,
-            'mostrarModal' => $mostrarModal,
+            //'mostrarModal' => $mostrarModal,
             'Path_img_perfil' => $fotoIMG,
         ];
 
         echo $this->presenter->render('view/preguntaPartida.mustache', $data);
     }
 
+public function validarRespuesta()
+{
 
+    $id = isset($_POST['id_partida']) ? $_POST['id_partida'] : null;
+    $id_partida = intval($id);
+    $respuesta = isset($_POST['answer']) ? $_POST['answer'] : null;
+    $tiempo = isset($_POST['tiempo']) ? $_POST['tiempo'] : null;
+    $tiempo_int = intval($tiempo);
+    $sesion = new ManejoSesiones();
+    $user = $sesion->obtenerUsuario();
+    $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+
+    if ($respuesta != null) {
+        $respuesVerificada = $this->model->verificarRespuesta($respuesta, $user['id'], $id_partida, $tiempo_int);
+        if ($respuesVerificada != null) {
+            $categoria = $this->model->obtenerCategoriaAlAzar();
+            echo $this->presenter->render("view/partida.mustache", [
+                'categoria' => $categoria[0]['categoria'],
+                'id_partida' => $id_partida,
+                'Es_correcta' => $respuesVerificada,
+                'Path_img_perfil' => $fotoIMG
+            ]);
+        } else {
+            $sesion = new ManejoSesiones();
+            $user = $sesion->obtenerUsuario();
+            $mejoresPuntajesJugador = $this->model->trearMejoresPuntajesJugadores();
+            $actualizarPartida = $this->model->actualizarPartida($id_partida);
+            $partidas = $this->model->obtenerPartidasEnCurso($user['id']);
+            $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+            echo $this->presenter->render('view/home.mustache', ['partidas' => $partidas,
+                'puntajes' => $mejoresPuntajesJugador,
+                'nombre_usuario' => $user['nombre_usuario'],
+                'Es_correcta' => $respuesVerificada,
+                'Path_img_perfil' => $fotoIMG]);
+        }
+    } else {
+        // Actualziar el ranking despues de jugar una partida
+        $actualizarPartida = $this->model->actualizarPartida($id_partida);
+        $sesion = new ManejoSesiones();
+        $user = $sesion->obtenerUsuario();
+        $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+        $mejoresPuntajesJugador1 = $this->model->trearMejoresPuntajesJugadores();
+        $partidas1 = $this->model->obtenerPartidasEnCurso($user['id']);
+        echo $this->presenter->render('view/home.mustache', ['partidas' => $partidas1,
+            'puntajes' => $mejoresPuntajesJugador1,
+            'nombre_usuario' => $user['nombre_usuario'],
+            'Path_img_perfil' => $fotoIMG
+        ]);
+    }
+}
+
+    // CON MODAL
+/*
     public function validarRespuesta() {
+        $sesion = new ManejoSesiones();
+        $user = $sesion->obtenerUsuario();
         $id = isset($_POST['id_partida']) ? $_POST['id_partida'] : null;
         $id_partida = intval($id);
         $respuesta = isset($_POST['answer']) ? $_POST['answer'] : null;
         $tiempo = isset($_POST['tiempo']) ? $_POST['tiempo'] : null;
         $tiempo_int = intval($tiempo);
-        $sesion = new ManejoSesiones();
-        $user = $sesion->obtenerUsuario();
-        $sesion->guardarIdPartida($id_partida);
-
-        if ($respuesta != null) {
+        print_r($user);
+        if ($respuesta != null ) {
             // Verifica si la respuesta es correcta
             $respuesVerificada = $this->model->verificarRespuesta($respuesta, $user['id'], $id_partida, $tiempo_int);
-
             if ($respuesVerificada != null) {
                 // Respuesta correcta
                 $mostrarModal = "correcto"; // Modal para respuesta correcta
                 $categoria = $this->model->obtenerCategoriaAlAzar();
+
                 echo $this->presenter->render('view/preguntaPartida.mustache', [
                     'categoria' => $categoria[0]['categoria'],
                     'id_partida' => $id_partida,
                     'Es_correcta' => $respuesVerificada,
-                    'mostrarModal' => $mostrarModal // Pasamos la variable correcta
+                    //'mostrarModal' => $mostrarModal // Pasamos la variable correcta
                 ]);
             } else {
                 // Respuesta incorrecta
@@ -125,7 +178,7 @@ class PartidaController
                     'puntajes' => $mejoresPuntajesJugador,
                     'nombre_usuario' => $user['nombre_usuario'],
                     'Es_correcta' => $respuesVerificada,
-                    'mostrarModal' => $mostrarModal // Pasamos la variable incorrecta
+                   // 'mostrarModal' => $mostrarModal // Pasamos la variable incorrecta
                 ]);
             }
         } else {
@@ -149,16 +202,18 @@ class PartidaController
         $sesion=New ManejoSesiones();
         $user = $sesion->obtenerUsuario();
         if($user != null) {
-            $id = isset($_POST['id_partida']) ? $_POST['id_partida'] : null;
-            $id_partida = intval($id);
+            //$id = isset($_POST['id_partida']) ? $_POST['id_partida'] : null;
+           // $id_partida = intval($id);
             $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
             $categoria = $this->model->obtenerCategoriaAlAzar();
+            $id_partida = $sesion->obtenerIdPartida();
 
             echo $this->presenter->render("view/partida.mustache", [
                 'categoria' => $categoria[0]['categoria'],
                 'id_partida' => $id_partida,
                 'nombre_usuario' => $user['nombre_usuario'],
-                'Path_img_perfil' => $fotoIMG]);
+                'Path_img_perfil' => $fotoIMG,
+            ]);
         }
     }
 
@@ -166,57 +221,25 @@ class PartidaController
     {
         $sesion=New ManejoSesiones();
         $user = $sesion->obtenerUsuario();
-        $id_partidaActual = $sesion->obtenerIdPartida();
+        $id_partida = $sesion->obtenerIdPartida();
         $mejoresPuntajesJugador = $this->model->trearMejoresPuntajesJugadores();
         $id=isset($_POST['id_partida'])?$_POST['id_partida']:null;
         $id_partida=intval($id);
-        print_r($id_partidaActual);
-        $actualizarPartida = $this->model->actualizarPartida($id_partidaActual);
+        //print_r($id_partidaActual);
+        $actualizarPartida = $this->model->actualizarPartida($id_partida);
         $partidas = $this->model->obtenerPartidasEnCurso($user['id']);
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
         if($user != null) {
             echo $this->presenter->render('view/home.mustache', ['partidas' => $partidas,
                 'puntajes' => $mejoresPuntajesJugador,
                 'nombre_usuario' => $user['nombre_usuario'],
-                'Path_img_perfil' => $fotoIMG]);
+                'Path_img_perfil' => $fotoIMG,
+                'id_partida' => $id_partida,
+
+            ]);
         }
     }
-    /* // ORIGINAL
-    public function mostrarPregunta(){
-        $id_partida=isset($_GET['id_partida'])?$_GET['id_partida']:null;
-        $sesion=New ManejoSesiones();
-        $user = $sesion->obtenerUsuario();
-        $username = $user['nombre_usuario'] ?? 'Invitado';
-
-
-        $categoria=isset($_GET['categoria'])?$_GET['categoria']:null;
-        $nivelUsuario=$this->model->verificarNivelDeUsuario($user['id']);
-        $pregunta=$this->model->buscarPregunta($categoria,$nivelUsuario);
-        $opcion =$this->model->traerRespuestasDePregunta($pregunta['ID']);
-        $mostrarModal= "NoEligioOpcion";
-
-
-        $data=[
-            'pregunta'=>$pregunta['Pregunta'],
-            'id_pregunta'=>$pregunta['ID'],
-            'opcion1'=>$opcion[0]['Texto_respuesta'],
-            'opcion2'=>$opcion[1]['Texto_respuesta'],
-            'opcion3'=>$opcion[2]['Texto_respuesta'],
-            'opcion4'=>$opcion[3]['Texto_respuesta'],
-            'id_partida'=>$id_partida,
-            'categoria' => $categoria,
-            //  'Es_correcta' =>  $respuesVerificada,
-            'nombre_usuario' => $username,
-            'mostrarModal' => $mostrarModal // Pasamos 'mostrarModal' aquí
-
-
-        ];
-
-        echo $this->presenter->render('view/preguntaPartida.mustache',$data);
-        //  print_r($respuesVerificada);
-        //  print_r(1);
-
-    }*/
+*/
 
 }
 ?>

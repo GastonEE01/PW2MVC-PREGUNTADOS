@@ -31,6 +31,9 @@ body {
     background-color: #f8f9fa;
     padding: 20px;
     border-bottom: 1px solid #e0e0e0;
+    display: flex; /* Añadido para alinear elementos en una fila */
+    justify-content: space-between; /* Para mantener los elementos separados */
+    align-items: center; /* Alinea verticalmente los elementos */
 }
 
 .card-title {
@@ -107,7 +110,11 @@ body {
 
 .defeat {
     background-color: #e74c3c;
-    color: white;
+    color: #000000;
+    margin-left: 600px;
+    width: 60px;
+    height: 50px;
+    font-size: 30px;
 }
 
 .final-score {

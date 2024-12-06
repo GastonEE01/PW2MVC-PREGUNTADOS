@@ -93,11 +93,26 @@
                                 <input type="text" id="OpcionD" name="OpcionD" value="{{OpcionD}}" required>
 
                                 <label for="OpcionCorrecta">Opción Correcta:</label>
-                                <input type="text" id="OpcionCorrecta" name="OpcionCorrecta" value="{{OpcionCorrecta}}" required>
-
+                               <!-- <input type="text" id="OpcionCorrecta" name="OpcionCorrecta" value="{{OpcionCorrecta}}" required>
+-->
+                                <select id="OpcionCorrecta" name="OpcionCorrecta" value="{{OpcionCorrecta}}" required>
+                                    <option value="" disabled selected>Selecciona la opción correcta</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
                                 <label for="Categoria">Categoría:</label>
-                                <input type="text" id="Categoria" name="Categoria" value="{{Categoria}}" required>
-
+   <!--                             <input type="text" id="Categoria" name="Categoria" value="{{Categoria}}" required>
+-->
+                                <select id="Categoria" name="Categoria"  value="{{Categoria}}" required>
+                                    <option value="" disabled selected>Selecciona la opción correcta</option>
+                                    <option value="Arte">Arte</option>
+                                    <option value="Cine">Cine</option>
+                                    <option value="Deportes">Deportes</option>
+                                    <option value="Historia">Ciencia</option>
+                                    <option value="Geografía">Geografía</option>
+                                </select>
                                 <button type="submit" class="action-button modify-button" >Guardar Cambios</button>
                             </form>
                         </div>

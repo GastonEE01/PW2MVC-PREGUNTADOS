@@ -212,6 +212,9 @@ ORDER BY
 
     public function verificarRespuesta($respuesta, $userID, $id_partida, $tiempo)
     {
+        if($id_partida == null){
+            echo "no se encontro id partida";
+        }
         if ($tiempo == 0) {
             $sql1_buscaPregunta = "SELECT p.*
                         FROM Pregunta p
