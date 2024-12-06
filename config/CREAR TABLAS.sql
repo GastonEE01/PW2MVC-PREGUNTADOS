@@ -44,7 +44,6 @@ FOREIGN KEY (Pregunta_id) REFERENCES Pregunta(ID)
 );
 CREATE TABLE Partida (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    Status_id INT,
     Descripcion TEXT NOT NULL ,
     Puntuacion INT NOT NULL,
     Puntuacion_porcentaje DECIMAL(5, 2) NOT NULL,

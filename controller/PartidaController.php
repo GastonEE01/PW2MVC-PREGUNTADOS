@@ -11,17 +11,28 @@ class PartidaController
         $this->presenter = $presenter;
     }
 
+    public function vistaLogin()
+    {
+        $sesion = new ManejoSesiones();
+        $sesion->limpiarCache();
+        $this->presenter->render("view/login.mustache");
+    }
+
     public function crearPartida()
     {
          $sesion = new ManejoSesiones();
          $user = $sesion->obtenerUsuario();
+         $id_usuario = $sesion->obtenerUsuarioID();
          $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
+        if (empty($user)) {
+            $this->vistaLogin();
+            return;
+        }
          $result = $this->model->crearPartida($descripcion, $user['id']);
          $partida = $this->model->buscarPorID($result['user_id']);
          $cantRegistros = count($partida);
          $cantRegistros -= 1;
          $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
-
          $partidas = $this->model->obtenerPartidasEnCurso($user['id']);
          $mejoresPunutajesJugador = $this->model->trearMejoresPuntajesJugadores();
 
@@ -29,6 +40,7 @@ class PartidaController
              'nombre_usuario' => $user['nombre_usuario'],
              'puntajes' => $mejoresPunutajesJugador,
              'Path_img_perfil' => $fotoIMG,
+             'id' => $id_usuario,
          ]);
     }
 
@@ -47,6 +59,13 @@ class PartidaController
         $usuario = $sesion->obtenerUsuario();
         $username = $usuario['nombre_usuario'] ?? 'Invitado';
         $fotoIMG = $usuario['Path_img_perfil'] ?? 'Invitado';
+//        $id_usuario = $sesion->obtenerUsuarioID();
+
+        if (empty($usuario)) {
+            $this->vistaLogin();
+            return;
+        }
+
         $sesion->guardarIdPartida($id_partida);
         $categoria=$this->model-> obtenerCategoriaAlAzar();
 
@@ -55,7 +74,6 @@ class PartidaController
             'id_partida'=> $id_partida,
             'nombre_usuario'=>$username,
             'Path_img_perfil' => $fotoIMG,
-
         ]);
 
     }
@@ -64,15 +82,14 @@ class PartidaController
         $sesion = new ManejoSesiones();
         $user = $sesion->obtenerUsuario();
         $id_partida = $sesion->obtenerIdPartida();
+        $id_usuario = $sesion->obtenerUsuarioID();
         $username = $user['nombre_usuario'] ?? 'Invitado';
 
-      //  $id_partida = isset($_GET['id_partida']) ? $_GET['id_partida'] : null;
         $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : null;
         $nivelUsuario = $this->model->verificarNivelDeUsuario($user['id']);
         $pregunta = $this->model->buscarPregunta($categoria, $nivelUsuario);
         $opcion = $this->model->traerRespuestasDePregunta($pregunta['ID']);
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
-        //$mostrarModal = "NoEligioOpcion";
 
         $data = [
             'pregunta' => $pregunta['Pregunta'],
@@ -86,8 +103,9 @@ class PartidaController
             'nombre_usuario' => $username,
             //'mostrarModal' => $mostrarModal,
             'Path_img_perfil' => $fotoIMG,
-        ];
+            'id' => $id_usuario,
 
+        ];
         echo $this->presenter->render('view/preguntaPartida.mustache', $data);
     }
 

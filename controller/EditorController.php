@@ -22,11 +22,20 @@ class EditorController
         $id_usuario = $sesion->obtenerUsuarioID();
         $pregutasSugeridas = $this->modelUsuario->obtenerPreguntasSugeridas();
         $reportes = $this->modelUsuario-> obtenerReportes();
+        $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+
+        if (empty($user)) {
+            $this->vistaLogin();
+            return;
+        }
+
         $this->presenter->render('view/editor.mustache', [
             'nombre_usuario' => $user['nombre_usuario'],
             'id' => $id_usuario,
             'reportes' => $reportes,
-            'preguntasSugeridas' => $pregutasSugeridas]);
+            'preguntasSugeridas' => $pregutasSugeridas,
+            'Path_img_perfil' => $fotoIMG,
+            ]);
     }
 
     public function eliminarPregunta()

@@ -18,17 +18,17 @@
 
     <!-- Navigation Section -->
     <nav class="header-nav">
-        <a href="../vistaLogin">
+        <a href="/PW2MVC-PREGUNTADOS/Usuario/cerrarSesion">
             <button class="logout-button">Cerrar sesión</button>
         </a>
     </nav>
 
     <!-- User Info Section -->
     <div class="user-container">
-        <span class="username">{{nombre_usuario}}</span>
         <div class="user-circle">
-            <img src="{{userImageUrl}}" alt="Imagen de perfil de {{username}}" class="user-image">
+            <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil"  class="profile-pic">
         </div>
+        <span class="nombreUser">{{nombre_usuario}}</span>
     </div>
 </header>
 

@@ -6,14 +6,48 @@ body {
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
-    background-repeat: no-repeat;
-/*background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKT63aAXFgQj9E9Ypj_qYIYDoWoze1VBlBjw&s");/*historia*/
-   /* background-image: url("https://static.wikia.nocookie.net/preguntados-juego/images/e/e0/Entretenimiento.png/revision/latest?cb=20171009154517&path-prefix=es"); /*cine*/
-   /*background-image: url("https://static.wikia.nocookie.net/preguntados-juego/images/2/2e/Arte.png/revision/latest?cb=20171009212238&path-prefix=es"); /*arte*/
-   /*background-image: url("https://static.wikia.nocookie.net/preguntados-juego/images/f/f7/Geograf%C3%ADa.png/revision/latest/smart/width/250/height/250?cb=20171009211549&path-prefix=es");/*geografia*/
-    /*background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_XDoHuTnm_ygEi9527Y3nkc5JViM0G6dysTv1gfkVXuEF2NRrt5vi_n6iivkH4lQPuM8&usqp=CAU"); /*ciencia*/
-    background-image: url("https://static.wikia.nocookie.net/preguntados-juego/images/1/1f/Bonzo.png/revision/latest/thumbnail/width/360/height/360?cb=20240811233915&path-prefix=es");/*deporte*/
+    background: #191717;
+}
 
+.imgPersonaje{
+    display: flex;
+    flex-direction: column;
+}
+
+.arte{
+    margin-left: 100px;
+    width: 200px;
+    height: 300px;
+}
+
+.geografia{
+
+    margin-right: 40px;
+}
+.ciencia{
+    margin-top: 25px;
+    width: 200px;
+    height: 300px;
+    margin-left: 100px;
+}
+.deporte{
+    width: 200px;
+    height: 300px;
+    margin-right: 40px;
+}
+
+.cine{
+    width: 250px;
+    height: 300px;
+    margin-left: 30px;
+
+}
+.historia{
+    margin-right: 120px;
+
+}
+body h2{
+    color: white;
 }
 
 .container {

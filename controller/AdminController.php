@@ -22,9 +22,18 @@ class AdminController
         $user = $sesion->obtenerUsuario();
         $sesion->iniciarSesion($user);
         $id_usuario = $sesion->obtenerUsuarioID();
+        $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+
+        if (empty($user)) {
+            $this->vistaLogin();
+            return;
+        }
+
         $this->presenter->render('view/admin.mustache', [
             'nombre_usuario' => $user['nombre_usuario'],
-            'id' => $id_usuario]);
+            'id' => $id_usuario,
+            'Path_img_perfil' => $fotoIMG,
+        ]);
     }
 
     public function obtenerUsuarioPorEdad() {

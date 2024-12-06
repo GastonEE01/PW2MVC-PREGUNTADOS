@@ -22,20 +22,19 @@ class UsuarioController
 
     }
 
-    public function login()
+  /*  public function login()
     {
         $nombreUsuario = $_POST['nombreUsuario'];
         $password = $_POST['password'];
 
         $resultado = $this->model->logearse($nombreUsuario, $password);
 
-
         if ($resultado['success']) {
             $this->lobby();
         } else {
             $this->presenter->render("view/home.mustache", ['error' => true, 'message' => $resultado['message']]);
         }
-    }
+    }*/
 /*
     public function logout()
     {
@@ -51,9 +50,17 @@ class UsuarioController
 
     public function vistaLogin()
     {
+        $sesion = new ManejoSesiones();
+        $sesion->limpiarCache();
         $this->presenter->render("view/login.mustache");
     }
 
+    public function cerrarSesion()
+    {
+        $sesion = new ManejoSesiones();
+        $sesion->cerrarSesion();
+        $this->presenter->render("view/login.mustache");
+    }
 
     public function vistaHome()
     {
@@ -61,16 +68,22 @@ class UsuarioController
         $user = $sesion->obtenerUsuario();
         $sesion->iniciarSesion($user);
         $id_usuario = $sesion->obtenerUsuarioID();
+
+        if (empty($user)) {
+            $this->vistaLogin();
+            return;
+        }
+
         $mejoresPuntajesJugador = $this->modelPartida->trearMejoresPuntajesJugadores();
         $partidas = $this->modelPartida->obtenerPartidasEnCurso($user['id']);
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+            $this->presenter->render('view/home.mustache', ['partidas' => $partidas,
+                'nombre_usuario' => $user['nombre_usuario'],
+                'id' => $id_usuario,
+                'puntajes' => $mejoresPuntajesJugador,
+                'Path_img_perfil' => $fotoIMG,
+            ]);
 
-        $this->presenter->render('view/home.mustache', ['partidas' => $partidas,
-            'nombre_usuario' => $user['nombre_usuario'],
-            'id' => $id_usuario,
-            'puntajes' => $mejoresPuntajesJugador,
-            'Path_img_perfil' => $fotoIMG,
-        ]);
     }
 
     public function vistaPerfil()
@@ -85,8 +98,16 @@ class UsuarioController
         $longitudMapa = $user['latitudMapa'] ?? 'Invitado';
         $latitudMapa = $user['longitudMapa'] ?? 'Invitado';
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
+
+        if (empty($user)) {
+            $this->vistaLogin();
+            return;
+        }
+
         $partidas = $this->modelPartida->obtenerPartidasFinalizada($user['id']);
         $generarQR = $this->generadorQR->generarQRUsuario($nombre_usuario,$ciudad,$pais,$gmail);
+
+
         $this->presenter->render('view/perfil.mustache', ['partidas' => $partidas,
             'nombre_usuario' => $nombre_usuario,
             'id' => $id_usuario,
@@ -184,17 +205,16 @@ class UsuarioController
                     }
                 }
                 // Valido que el usuario tenga la sesion iniciada, sino lo mando al login
-                if($user =='Invitado' || $user=="admin")
+            /*    if($user =='Invitado' || $user=="admin")
                     header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
+                    exit();*/
 
-                $this->presenter->render('view/editor.mustache',[
+                    $this->presenter->render('view/editor.mustache',[
                     'nombre_usuario' => $user['nombre_usuario'],
                     'id' => $id_usuario,
                     'reportes' => $reportes,
                     'preguntasSugeridas' => $pregutasSugeridas,
-
-                ]);
-
+                        ]);
             } elseif ($user['rol'] == 3) {
                 $this->presenter->render('view/admin.mustache',[
                 'nombre_usuario' => $user['nombre_usuario'],
@@ -212,6 +232,11 @@ class UsuarioController
             exit;
         } else {
             // Renderiza el formulario con un mensaje de error
+
+          /*  if (empty($user)) {
+                $this->vistaLogin();
+                return;
+            }*/
             $this->presenter->render("view/login.mustache", [
                 'error' => 'Nombre de usuario o contraseña incorrectos'
             ]);
@@ -308,5 +333,7 @@ class UsuarioController
             'Path_img_perfil' => $fotoIMG,
         ]);
     }
+
+
 
 }
