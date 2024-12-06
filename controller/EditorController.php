@@ -20,14 +20,20 @@ class EditorController
         $user = $sesion->obtenerUsuario();
         $sesion->iniciarSesion($user);
         $id_usuario = $sesion->obtenerUsuarioID();
+
+        if (empty($user)) {
+            header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
+            exit();
+        }
+
         $pregutasSugeridas = $this->modelUsuario->obtenerPreguntasSugeridas();
         $reportes = $this->modelUsuario-> obtenerReportes();
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
 
-        if (empty($user)) {
+     /*   if (empty($user)) {
             $this->vistaLogin();
             return;
-        }
+        }*/
 
         $this->presenter->render('view/editor.mustache', [
             'nombre_usuario' => $user['nombre_usuario'],

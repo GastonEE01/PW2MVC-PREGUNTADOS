@@ -24,10 +24,10 @@ class PartidaController
          $user = $sesion->obtenerUsuario();
          $id_usuario = $sesion->obtenerUsuarioID();
          $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
-        if (empty($user)) {
+      /*  if (empty($user)) {
             $this->vistaLogin();
             return;
-        }
+        }*/
          $result = $this->model->crearPartida($descripcion, $user['id']);
          $partida = $this->model->buscarPorID($result['user_id']);
          $cantRegistros = count($partida);
@@ -59,11 +59,11 @@ class PartidaController
         $usuario = $sesion->obtenerUsuario();
         $username = $usuario['nombre_usuario'] ?? 'Invitado';
         $fotoIMG = $usuario['Path_img_perfil'] ?? 'Invitado';
-//        $id_usuario = $sesion->obtenerUsuarioID();
+        $id_usuario = $sesion->obtenerUsuarioID();
 
         if (empty($usuario)) {
-            $this->vistaLogin();
-            return;
+            header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
+            exit();
         }
 
         $sesion->guardarIdPartida($id_partida);
@@ -74,6 +74,7 @@ class PartidaController
             'id_partida'=> $id_partida,
             'nombre_usuario'=>$username,
             'Path_img_perfil' => $fotoIMG,
+            'id' => $id_usuario,
         ]);
 
     }
@@ -91,6 +92,10 @@ class PartidaController
         $opcion = $this->model->traerRespuestasDePregunta($pregunta['ID']);
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
 
+        if (empty($user)) {
+            header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
+            exit();
+        }
         $data = [
             'pregunta' => $pregunta['Pregunta'],
             'id_pregunta' => $pregunta['ID'],
@@ -119,6 +124,7 @@ public function validarRespuesta()
     $tiempo_int = intval($tiempo);
     $sesion = new ManejoSesiones();
     $user = $sesion->obtenerUsuario();
+    $id_usuario = $sesion->obtenerUsuarioID();
     $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
 
     if ($respuesta != null) {
@@ -129,7 +135,9 @@ public function validarRespuesta()
                 'categoria' => $categoria[0]['categoria'],
                 'id_partida' => $id_partida,
                 'Es_correcta' => $respuesVerificada,
-                'Path_img_perfil' => $fotoIMG
+                'Path_img_perfil' => $fotoIMG,
+                'nombre_usuario' => $user['nombre_usuario'],
+                'id' => $id_usuario,
             ]);
         } else {
             $sesion = new ManejoSesiones();

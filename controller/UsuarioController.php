@@ -22,27 +22,6 @@ class UsuarioController
 
     }
 
-  /*  public function login()
-    {
-        $nombreUsuario = $_POST['nombreUsuario'];
-        $password = $_POST['password'];
-
-        $resultado = $this->model->logearse($nombreUsuario, $password);
-
-        if ($resultado['success']) {
-            $this->lobby();
-        } else {
-            $this->presenter->render("view/home.mustache", ['error' => true, 'message' => $resultado['message']]);
-        }
-    }*/
-/*
-    public function logout()
-    {
-        $this->model->logout();
-        header("location:/");
-        exit();
-    }
-*/
     public function vistaRegistro()
     {
         $this->presenter->render("view/registro.mustache");
@@ -50,8 +29,9 @@ class UsuarioController
 
     public function vistaLogin()
     {
-        $sesion = new ManejoSesiones();
-        $sesion->limpiarCache();
+        // Si pongo esto se rompe la parte de las pregunta partida
+    //    $sesion = new ManejoSesiones();
+        //$sesion->limpiarCache();
         $this->presenter->render("view/login.mustache");
     }
 
@@ -83,7 +63,6 @@ class UsuarioController
                 'puntajes' => $mejoresPuntajesJugador,
                 'Path_img_perfil' => $fotoIMG,
             ]);
-
     }
 
     public function vistaPerfil()
@@ -291,15 +270,8 @@ class UsuarioController
                 'Descripcion' => $_POST['selectMotivo'],
                 'Usuario_id' => $idUsuario,
                 'nombre_usuario' => $user['nombre_usuario']
-
             ];
 
-            /* Hay que actualzar la partida,agregarle la partida que finalizo asi se muestra en  el perfil,lo mismo con el temporatizador cuando esta en 0
-               $partidas = $this->crearPartidaModel->obtenerPartidas($id_usuario);
-               $id=isset($_POST['id_partida'])?$_POST['id_partida']:null;
-               $id_partida=intval($id);
-               $actualizarPartida = $this->crearPartidaModel->actualizarPartida($id_partida);
-   */
             $this->model->crearReportePregunta($data, $idUsuario);
             $partidas = $this->modelPartida->obtenerPartidasEnCurso($usuario['id']);
             $mejoresPuntajesJugador = $this->modelPartida->trearMejoresPuntajesJugadores();
@@ -309,7 +281,6 @@ class UsuarioController
                 'nombre_usuario' => $user['nombre_usuario'],
                 'Path_img_perfil' => $fotoIMG,
             ]);
-
         } else {
             echo "Faltan datos en el formulario.";
         }

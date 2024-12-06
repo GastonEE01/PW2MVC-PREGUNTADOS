@@ -25,8 +25,8 @@ class AdminController
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
 
         if (empty($user)) {
-            $this->vistaLogin();
-            return;
+            header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
+            exit();
         }
 
         $this->presenter->render('view/admin.mustache', [

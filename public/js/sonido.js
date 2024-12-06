@@ -24,12 +24,12 @@ function apagarSonidoPartida() {
     isMuted = !isMuted; // Cambiar el estado de mute
     if (isMuted) {
         audio.pause(); // Pausar música
-        // muteTimer.pause();
+         muteTimer.pause();
         muteIcon.src = "/PW2MVC-PREGUNTADOS/public/imagenes/sonido/mute.png";
         muteIcon.alt = "Sonido desactivado";
     } else {
         audio.play(); // Reanudar música
-        //  muteTimer.play();
+          muteTimer.play();
         muteIcon.src = "/PW2MVC-PREGUNTADOS/public/imagenes/sonido/sonido.png";
         muteIcon.alt = "Sonido activado";
     }

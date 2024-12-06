@@ -39,7 +39,9 @@ let countdownInterval = setInterval(() => {
         clearInterval(countdownInterval); // Detener el temporizador
 
         // Reproducir el sonido
-        modal.style.display = "flex";
+        // Detener el sonido del temporizador
+        let timerAudio = document.getElementById('timer-audio');
+        timerAudio.pause(); // Pausar el audio
 
         closeModal.onclick = function() {
             window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
