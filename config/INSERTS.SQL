@@ -14,7 +14,7 @@ INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Quién pint
 INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Cuál de estos no es un color primario en pintura?', 1, 1);
 INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Qué artista es famoso por sus latas de sopa Campbell?', 1, 1);
 INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Qué movimiento artístico fundó Piet Mondrian?', 2, 1);
-INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Quién esculpió "El Pensador"?', 1, 1);
+INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Quién esculpió "El Pensador"?', 2, 1);
 INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿En qué ciudad italiana se encuentra "La Última Cena" de Leonardo da Vinci?', 3, 1);
 INSERT INTO Pregunta (Pregunta, Dificultad, Categoria_id) VALUES ('¿Qué artista cortó parte de su propia oreja?', 3, 1);
 

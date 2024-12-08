@@ -141,18 +141,30 @@ ORDER BY
             $acertada = $pregunta['acertada'];
             $dificultad = ($acertada / $mostrada) * 100;
 
-            if ($pregunta['ID'] != 3 &&
-                $pregunta['ID'] != 4 &&
-                $pregunta['ID'] != 7 &&
-                $pregunta['ID'] != 6 &&
-                $pregunta['ID'] != 14 &&
-                $pregunta['ID'] != 15 &&
-                $pregunta['ID'] != 18 &&
+            if ($pregunta['ID'] != 7 &&
+                $pregunta['ID'] != 8 &&
+                $pregunta['ID'] != 9 &&
+                $pregunta['ID'] != 10 &&
                 $pregunta['ID'] != 17 &&
-                $pregunta['ID'] != 21 &&
-                $pregunta['ID'] != 22 &&
+                $pregunta['ID'] != 18 &&
+                $pregunta['ID'] != 19 &&
+                $pregunta['ID'] != 20 &&
                 $pregunta['ID'] != 27 &&
-                $pregunta['ID'] != 30
+                $pregunta['ID'] != 28 &&
+                $pregunta['ID'] != 29 &&
+                $pregunta['ID'] != 30 &&
+                $pregunta['ID'] != 37 &&
+                $pregunta['ID'] != 38 &&
+                $pregunta['ID'] != 39 &&
+                $pregunta['ID'] != 40 &&
+                $pregunta['ID'] != 47 &&
+                $pregunta['ID'] != 48 &&
+                $pregunta['ID'] != 49 &&
+                $pregunta['ID'] != 50 &&
+                $pregunta['ID'] != 57 &&
+                $pregunta['ID'] != 58 &&
+                $pregunta['ID'] != 59 &&
+                $pregunta['ID'] != 60
             ) {
 
 
