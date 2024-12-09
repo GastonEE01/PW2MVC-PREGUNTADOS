@@ -195,11 +195,13 @@ class UsuarioController
                     'preguntasSugeridas' => $pregutasSugeridas,
                         'Path_img_perfil' => $fotoIMG]);
             } elseif ($user['rol'] == 3) {
-                $this->presenter->render('view/admin.mustache',[
+                header("Location: /PW2MVC-PREGUNTADOS/Admin/vistaAdmin");
+                exit();
+               /* $this->presenter->render('view/admin.mustache',[
                 'nombre_usuario' => $user['nombre_usuario'],
                     'id' => $id_usuario,
                     'Path_img_perfil' => $fotoIMG,
-                ]);
+                ]);*/
 
             } else {
                 $this->presenter->render('view/home.mustache', ['partidas' => $partidas,
