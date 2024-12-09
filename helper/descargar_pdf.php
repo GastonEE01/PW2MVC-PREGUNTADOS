@@ -10,44 +10,8 @@ use Dompdf\Options;
 
 class descargar_pdf
 {
-    public function descargarPDF()
-    {
 
-
-// Configuración de Dompdf
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $dompdf = new Dompdf($options);
-
-// Contenido HTML del PDF
-        $html = '
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Reporte de Usuarios por Edad</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        img { max-width: 100%; height: auto; margin: 20px 0; }
-    </style>
-</head>
-<body>
-    <h1>Reporte de Usuarios por Edad</h1>
-    <img src="http://localhost/PW2MVC-PREGUNTADOS/public/imagenes/grafico/chart.png" alt="Gráfico de Usuarios por Edad">
-</body>
-</html>
-';
-
-// Generar el PDF
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape'); // Cambiar orientación si es necesario
-        $dompdf->render();
-
-// Enviar el PDF al navegador
-        $dompdf->stream('usuarios_por_edad.pdf', ['Attachment' => 0]); // 'Attachment' => 0 para visualizar
-    }
-
-    public function descargarPDFUsuarioPorEdad($niños,$adolescentes,$adultos,$ancianos)
+    public function descargarPDFEstadisticaPreguntaDelJuego($data)
     {
         // Configuración de Dompdf
         $options = new Options();
@@ -55,50 +19,185 @@ class descargar_pdf
         $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
 
-        // Obtener los datos del modelo
-        $model = new AdminModel(); // Asegúrese de que esta clase exista y esté correctamente importada
-        $data = $model->clasificarUsuariosPorEdad();
+        // Ruta del archivo de imagen generado
+        $imagePath = __DIR__ . '/../public/imagenes/grafico/graficoEstadisticasPreguntas.png';
+
+        // Convertir la imagen a base64 para incluirla directamente en el HTML
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $src = 'data:image/png;base64,' . $imageData;
 
         // Contenido HTML del PDF
-        $html = '
+        $html = "
         <!DOCTYPE html>
-        <html>
+        <html lang='es'>
         <head>
-            <title>Reporte de Usuarios por Edad</title>
+            <meta charset='UTF-8'>
+            <title>Estadísticas de Preguntas del Juego</title>
             <style>
-                body { font-family: Arial, sans-serif; text-align: center; }
-                img { max-width: 100%; height: auto; margin: 20px 0; }
-                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                th { background-color: #f2f2f2; }
+                body { 
+                    font-family: 'Poppins', sans-serif; 
+                    background-color: #2C3E50;
+                    color: #ECF0F1;
+                }
+                h1 { 
+                    color: #E74C3C; 
+                    text-align: center; 
+                    font-size: 24px;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                }
+                .chart-container { 
+                    text-align: center; 
+                    margin: 20px 0; 
+                    background-color: #34495E;
+                    padding: 20px;
+                    border-radius: 10px;
+                }
+                img { 
+                    max-width: 100%; 
+                    height: auto; 
+                }
+                table { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-top: 20px; 
+                    background-color: #34495E;
+                }
+                th, td { 
+                    border: 1px solid #ECF0F1; 
+                    padding: 8px; 
+                    text-align: left; 
+                }
+                th { 
+                    background-color: #3498DB; 
+                    color: white;
+                }
             </style>
         </head>
         <body>
-            <h1>Reporte de Usuarios por Edad</h1>
-            <img src="' . __DIR__ . '/../public/imagenes/grafico/graficoUsuarioPorEdad.png" alt="Gráfico de Usuarios por Edad">
+            <h1>🎮 Estadísticas de Preguntas del Juego - Preguntados 🎮</h1>
+            <div class='chart-container'>
+                <img src='$src' alt='Gráfico de Estadísticas de Preguntas'>
+            </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Rango de Edad</th>
-                        <th>Porcentaje de Usuarios</th>
+                        <th>Tipo de Respuesta</th>
+                        <th>Porcentaje</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Niños</td><td>' . $niños . '%</td></tr>
-                    <tr><td>Adolescentes</td><td>' . $adolescentes . '%</td></tr>
-                    <tr><td>Adultos</td><td>' . $adultos . '%</td></tr>
-                    <tr><td>Ancianos</td><td>' . $ancianos . '%</td></tr>
+                    <tr><td>Correctas</td><td>{$data[0]}%</td></tr>
+                    <tr><td>Incorrectas</td><td>{$data[1]}%</td></tr>
                 </tbody>
             </table>
         </body>
-        </html>';
+        </html>";
 
         // Generar el PDF
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        // Enviar el PDF al navegador
-        $dompdf->stream('usuarios_por_edad.pdf', ['Attachment' => 0]);
+        // Enviar el PDF al navegador para descarga
+        $dompdf->stream('estadisticas_preguntas_juego.pdf', ['Attachment' => 1]);
     }
+
+
+    public function descargarPDFUsuarioPorEdad($data)
+    {
+        // Configuración de Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+
+        // Ruta del archivo de imagen generado
+        $imagePath = __DIR__ . '/../public/imagenes/grafico/graficoUsuarioPorEdad.png';
+
+        // Convertir la imagen a base64 para incluirla directamente en el HTML
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $src = 'data:image/png;base64,' . $imageData;
+
+        // Contenido HTML del PDF
+        $html = "
+        <!DOCTYPE html>
+        <html lang='es'>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Distribución de Usuarios por Edad</title>
+            <style>
+                body { 
+                    font-family: 'Poppins', sans-serif; 
+                    background-color: #2C3E50;
+                    color: #ECF0F1;
+                }
+                h1 { 
+                    color: #E74C3C; 
+                    text-align: center; 
+                    font-size: 24px;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                }
+                .chart-container { 
+                    text-align: center; 
+                    margin: 20px 0; 
+                    background-color: #34495E;
+                    padding: 20px;
+                    border-radius: 10px;
+                }
+                img { 
+                    max-width: 100%; 
+                    height: auto; 
+                }
+                table { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-top: 20px; 
+                    background-color: #34495E;
+                }
+                th, td { 
+                    border: 1px solid #ECF0F1; 
+                    padding: 8px; 
+                    text-align: left; 
+                }
+                th { 
+                    background-color: #3498DB; 
+                    color: white;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>🎮 Distribución de Usuarios por Edad - Preguntados 🎮</h1>
+            <div class='chart-container'>
+                <img src='$src' alt='Gráfico de Usuarios por Edad'>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rango de Edad</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>";
+
+        $labels = ['Niños', 'Adolescentes', 'Adultos', 'Ancianos'];
+        foreach ($data as $index => $value) {
+            $html .= "<tr><td>{$labels[$index]}</td><td>{$value}</td></tr>";
+        }
+
+        $html .= "
+                </tbody>
+            </table>
+        </body>
+        </html>";
+
+        // Generar el PDF
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Enviar el PDF al navegador para descarga
+        $dompdf->stream('usuarios_por_edad.pdf', ['Attachment' => 1]);
+    }
+
+
 }

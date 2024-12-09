@@ -193,11 +193,12 @@ class UsuarioController
                     'id' => $id_usuario,
                     'reportes' => $reportes,
                     'preguntasSugeridas' => $pregutasSugeridas,
-                        ]);
+                        'Path_img_perfil' => $fotoIMG]);
             } elseif ($user['rol'] == 3) {
                 $this->presenter->render('view/admin.mustache',[
                 'nombre_usuario' => $user['nombre_usuario'],
-                    'id' => $id_usuario
+                    'id' => $id_usuario,
+                    'Path_img_perfil' => $fotoIMG,
                 ]);
 
             } else {
@@ -205,8 +206,7 @@ class UsuarioController
                     'nombre_usuario' => $user['nombre_usuario'],
                     'id' => $id_usuario,
                     'puntajes' => $mejoresPuntajesJugador,
-                    'Path_img_perfil' => $fotoIMG,
-                ]);
+                    'Path_img_perfil' => $fotoIMG]);
             }
             exit;
         } else {

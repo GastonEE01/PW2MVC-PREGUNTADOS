@@ -30,7 +30,7 @@
 
     <div class="user-container">
         <div class="user-circle">
-            <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil"  class="profile-pic">
+           <!-- <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil"  class="profile-pic">-->
         </div>
         <span class="nombreUser">{{nombre_usuario}}</span>
     </div>
@@ -38,61 +38,124 @@
 
 <div class="container">
     <h1>🎮 Panel de Administración - Preguntados 🎮</h1>
+    <button id="showAgeStats" class="stat-button">Usuarios por Edad</button>
+    <button id="showGameQuestions" class="stat-button">Preguntas del juego</button>
+<!--
+    <h2>{{cantidadFacilArte}} cantidadFacilArte </h2>
+    <h2>{{cantidadNormalArte}} cantidadNormalArte </h2>
+    <h2>{{cantidadDificil}} cantidadDificil </h2>
+    <h2>{{cantidadFacilCine}} cantidadFacilCine </h2>
+    <h2>{{cantidadNormalCine}} cantidadNormalCine </h2>
+    <h2>{{cantidadDificilCine}} cantidadDificilCine </h2>
+-->
+    <!-- Datos de usuarios por edad-->
+    <input type="hidden" id="ninio" name="{{ninio}}" value="{{ninio}}">
+    <input type="hidden" id="adolecente" name="{{adolescente}}" value="{{adolescente}}">
+    <input type="hidden" id="adulto" name="{{adulto}}" value="{{adulto}}">
+    <input type="hidden" id= "anciano" name="{{ancianos}}" value="{{ancianos}}">
 
-    <div class="dashboard-grid">
-        <div class="stats-grid">
-            <button class="stat-button" onclick="showChart('playerChart')">Cantidad de Jugadores</button>
-            <button class="stat-button" onclick="showChart('gameChart')">Partidas Jugadas</button>
-            <button class="stat-button" onclick="showChart('questionChart')">Preguntas en Juego</button>
-            <button class="stat-button" onclick="showChart('createdQuestionChart')">Preguntas Creadas</button>
-            <button class="stat-button" onclick="showChart('newUserChart')">Usuarios Nuevos</button>
-            <button class="stat-button" onclick="showChart('correctAnswerChart')">% Respuestas Correctas</button>
-            <button class="stat-button" onclick="showChart('countryChart')">Usuarios por País</button>
-            <button class="stat-button" onclick="showChart('genderChart')">Usuarios por Sexo</button>
-            <button class="stat-button" onclick="showChart('ageChart')">Usuarios por Edad</button>
+</div>
+
+<!-- GRAFICO DE USUARIO POR EDAD -->
+<div id="ageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Distribución de Usuarios por Edad</h2>
+        <canvas id="ageChart"></canvas>
+        <table id="ageTable">
+            <thead>
+            <tr>
+                <th>Rango de Edad</th>
+                <th>Cantidad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Table rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerUsuarioPorEdad">
+            <button id="downloadAgePDF" class="download-button">Descargar PDF</button>
+        </a>
+    </div>
+</div>
+
+<!-- GRAFICO DE PREGUNTAS DEL JUEGO -->
+<div id="gameQuestionsModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Preguntas del juego</h2>
+        <select id="dificultad" name="dificultad" value="elejirOpcion" >
+            <option value="elejirOpcion">Elija una opcion</option>
+            <option value="facil" id="facil">Preguntas faciles</option>
+            <option value="normal" id="normal">Preguntas normal</option>
+            <option value="dificil" id="dificil">Preguntas Dificil</option>
+        </select>
+
+        <!-- Traigo todos los valores de la cantidad de preg facil,normal,dificil de cada categoria-->
+        <!-- FACIL -->
+        <input type="hidden" id= "cantidadFacilArte" name="{{cantidadFacilArte}}" value="{{cantidadFacilArte}}">
+        <input type="hidden" id= "cantidadFacilCine" name="{{cantidadFacilCine}}" value="{{cantidadFacilCine}}">
+        <input type="hidden" id= "cantidadFacilHistoria" name="{{cantidadFacilHistoria}}" value="{{cantidadFacilHistoria}}">
+        <input type="hidden" id= "cantidadFacilDeporte" name="{{cantidadFacilDeporte}}" value="{{cantidadFacilDeporte}}">
+        <input type="hidden" id= "cantidadFacilCiencia" name="{{cantidadFacilCiencia}}" value="{{cantidadFacilCiencia}}">
+        <input type="hidden" id= "cantidadFacilGeografia" name="{{cantidadFacilGeografia}}" value="{{cantidadFacilGeografia}}">
+        <!-- NORMAL -->
+        <input type="hidden" id= "cantidadNormalArte" name="{{cantidadNormalArte}}" value="{{cantidadNormalArte}}">
+        <input type="hidden" id= "cantidadNormalCine" name="{{cantidadNormalCine}}" value="{{cantidadNormalCine}}">
+        <input type="hidden" id= "cantidadNormalHistoria" name="{{cantidadNormalHistoria}}" value="{{cantidadNormalHistoria}}">
+        <input type="hidden" id= "cantidadNormalDeporte" name="{{cantidadNormalDeporte}}" value="{{cantidadNormalDeporte}}">
+        <input type="hidden" id= "cantidadNormalCiencia" name="{{cantidadNormalCiencia}}" value="{{cantidadNormalCiencia}}">
+        <input type="hidden" id= "cantidadNormalGeografia" name="{{cantidadNormalGeografia}}" value="{{cantidadNormalGeografia}}">
+        <!-- DIFICIL -->
+        <input type="hidden" id= "cantidadDificilArte" name="{{cantidadDificilArte}}" value="{{cantidadDificilArte}}">
+        <input type="hidden" id= "cantidadDificilCine" name="{{cantidadDificilCine}}" value="{{cantidadDificilCine}}">
+        <input type="hidden" id= "cantidadDificilHistoria" name="{{cantidadDificilHistoria}}" value="{{cantidadDificilHistoria}}">
+        <input type="hidden" id= "cantidadDificilDeporte" name="{{cantidadDificilDeporte}}" value="{{cantidadDificilDeporte}}">
+        <input type="hidden" id= "cantidadDificilCiencia" name="{{cantidadDificilCiencia}}" value="{{cantidadDificilCiencia}}">
+        <input type="hidden" id= "cantidadDificilGeografia" name="{{cantidadDificilGeografia}}" value="{{cantidadDificilGeografia}}">
+
+        <div class="chart-container">
+            <canvas id="gameQuestionsChart"></canvas>
         </div>
+        <table id="gameQuestionsTable">
+            <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Cantidad</th>
+                <th>Preguntas correctas</th>
+                <th>Preguntas incorrectas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Cantidad de preguntas de cada cateogria -->
+            <input type="hidden" id= "arte" name="{{arte}}" value="{{arte}}">
+            <input type="hidden" id= "cine" name="{{cine}}" value="{{cine}}">
+            <input type="hidden" id= "historia" name="{{historia}}" value="{{historia}}">
+            <input type="hidden" id= "deporte" name="{{deporte}}" value="{{deporte}}">
+            <input type="hidden" id= "ciencia" name="{{ciencia}}" value="{{ciencia}}">
+            <input type="hidden" id= "geografia" name="{{geografia}}" value="{{geografia}}">
 
-        <div id="chartContainer" class="chart-container">
-            <h2 id="chartTitle"></h2>
-            <div class="filter-container">
-                <label for="timeFilter">Filtrar por:</label>
-                <select id="timeFilter" onchange="updateChart()">
-                    <option value="day">Día</option>
-                    <option value="week">Semana</option>
-                    <option value="month">Mes</option>
-                    <option value="year">Año</option>
-                </select>
-            </div>
+            <!-- Cantidad de preguntas correctas de cada categoria-->
+            <input type="hidden" id= "arteCorrectas" name="{{arteCorrectas}}" value="{{arteCorrectas}}">
+            <input type="hidden" id= "cineCorrectas" name="{{cineCorrectas}}" value="{{cineCorrectas}}">
+            <input type="hidden" id= "historiaCorrectas" name="{{historiaCorrectas}}" value="{{historiaCorrectas}}">
+            <input type="hidden" id= "deporteCorrectas" name="{{deporteCorrectas}}" value="{{deporteCorrectas}}">
+            <input type="hidden" id= "cienciaCorrectas" name="{{cienciaCorrectas}}" value="{{cienciaCorrectas}}">
+            <input type="hidden" id= "geografiaCorrectas" name="{{geografiaCorrectas}}" value="{{geografiaCorrectas}}">
 
-            <canvas id="chart"></canvas>
-            <table id="dataTable">
-                <thead>
-                <tr>
-                    <th>Categoría</th>
-                    <th>Valor</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Table rows will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-        </div>
+            <!-- Cantidad de preguntas incorrecta de cada categotia-->
+            <input type="hidden" id= "arteIncorrectas" name="{{arteIncorrectas}}" value="{{arteIncorrectas}}">
+            <input type="hidden" id= "cineIncorrectas" name="{{cineIncorrectas}}" value="{{cineIncorrectas}}">
+            <input type="hidden" id= "historiaIncorrectas" name="{{historiaIncorrectas}}" value="{{historiaIncorrectas}}">
+            <input type="hidden" id= "deporteIncorrectas" name="{{deporteIncorrectas}}" value="{{deporteIncorrectas}}">
+            <input type="hidden" id= "cienciaIncorrectas" name="{{cienciaIncorrectas}}" value="{{cienciaIncorrectas}}">
+            <input type="hidden" id= "geografiaIncorrectas" name="{{geografiaIncorrectas}}" value="{{geografiaIncorrectas}}">
+            </tbody>
+        </table>
+        <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerEstadisticaPregunta">
+        <button id="downloadGameQuestionsPDF" class="download-button">Descargar PDF</button>
+        </a>
 
-        <div class="pdf-buttons">
-            <button id="generatePDF_playerChart" class="generate-pdf-button" onclick="generatePDF('playerChart')">Generar PDF Cantidad de Jugadores</button>
-            <button id="generatePDF_gameChart" class="generate-pdf-button" onclick="generatePDF('gameChart')">Generar PDF Partidas Jugadas</button>
-            <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerEstadisticasPreguntas">
-                <button id="generatePDF_questionChart" class="generate-pdf-button" onclick="generatePDF('questionChart')">Generar PDF Preguntas en Juego</button>
-            </a>
-            <button id="generatePDF_createdQuestionChart" class="generate-pdf-button" onclick="generatePDF('createdQuestionChart')">Generar PDF Preguntas Creadas</button>
-            <button id="generatePDF_newUserChart" class="generate-pdf-button" onclick="generatePDF('newUserChart')">Generar PDF Usuarios Nuevos</button>
-            <button id="generatePDF_correctAnswerChart" class="generate-pdf-button" onclick="generatePDF('correctAnswerChart')">Generar PDF % Respuestas Correctas</button>
-            <button id="generatePDF_countryChart" class="generate-pdf-button" onclick="generatePDF('countryChart')">Generar PDF Usuarios por País</button>
-            <button id="generatePDF_genderChart" class="generate-pdf-button" onclick="generatePDF('genderChart')">Generar PDF Usuarios por Sexo</button>
-            <a href="/PW2MVC-PREGUNTADOS/Admin/obtenerUsuarioPorEdad">
-                <button id="generatePDF_ageChart" class="generate-pdf-button" onclick="generatePDF('ageChart')">Generar PDF Usuarios por Edad</button>
-            </a>
-        </div>
     </div>
 </div>
 
@@ -100,3 +163,4 @@
 
 </body>
 </html>
+

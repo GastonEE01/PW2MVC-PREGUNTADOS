@@ -1,197 +1,333 @@
-// Datos de ejemplo (ampliados para incluir todos los tipos de gráficos)
-const data = {
-    playerChart: [
-        { date: '2023-01', count: 100 },
-        { date: '2023-02', count: 150 },
-        { date: '2023-03', count: 200 },
-        { date: '2023-04', count: 180 },
-        { date: '2023-05', count: 220 },
-    ],
-    gameChart: [
-        { date: '2023-01', count: 500 },
-        { date: '2023-02', count: 750 },
-        { date: '2023-03', count: 1000 },
-        { date: '2023-04', count: 900 },
-        { date: '2023-05', count: 1100 },
-    ],
-    questionChart: [
-        { status: 'Pendiente', count: 50 },
-        { status: 'Aprobada', count: 200 },
-        { status: 'Rechazada', count: 30 },
-        { status: 'Reportada', count: 20 },
-        { status: 'Desactivada', count: 10 },
-    ],
-    createdQuestionChart: [
-        { date: '2023-01', count: 20 },
-        { date: '2023-02', count: 30 },
-        { date: '2023-03', count: 40 },
-        { date: '2023-04', count: 35 },
-        { date: '2023-05', count: 50 },
-    ],
-    newUserChart: [
-        { date: '2023-01', count: 50 },
-        { date: '2023-02', count: 70 },
-        { date: '2023-03', count: 90 },
-        { date: '2023-04', count: 80 },
-        { date: '2023-05', count: 100 },
-    ],
-    correctAnswerChart: [
-        { user: 'Usuario1', percentage: 75 },
-        { user: 'Usuario2', percentage: 80 },
-        { user: 'Usuario3', percentage: 70 },
-        { user: 'Usuario4', percentage: 85 },
-        { user: 'Usuario5', percentage: 78 },
-    ],
-    countryChart: [
-        { name: 'Argentina', value: 150 },
-        { name: 'Brasil', value: 100 },
-        { name: 'Chile', value: 80 },
-        { name: 'Otros', value: 70 },
-    ],
-    genderChart: [
-        { name: 'Masculino', value: 200 },
-        { name: 'Femenino', value: 180 },
-        { name: 'Otro', value: 20 },
-    ],
-    ageChart: [
-        { name: 'Niños', value: 50 },
-        { name: 'Adolescentes', value: 300 },
-        { name: 'Adultos', value: 50 },
-        { name: 'Ancianos', value: 50 },
+document.addEventListener('DOMContentLoaded', function() {
+    const ageModal = document.getElementById('ageModal');
+    const gameQuestionsModal = document.getElementById('gameQuestionsModal');
+    const showAgeStatsBtn = document.getElementById('showAgeStats');
+    const showGameQuestionsBtn = document.getElementById('showGameQuestions');
+    const closeButtons = document.getElementsByClassName('close');
+    const downloadAgePDFBtn = document.getElementById('downloadAgePDF');
+    const downloadGameQuestionsPDFBtn = document.getElementById('downloadGameQuestionsPDF');
 
-    ],
-};
+    // Datos de usuario por edad
+    const ninio = document.getElementById('ninio').value;
+    const adolescente = document.getElementById('adolecente').value;
+    const adulto = document.getElementById('adulto').value;
+    const anciano = document.getElementById('anciano').value;
 
-let currentChart = null;
-let currentChartType = '';
+    // Datos de cantidad de pregunta por categoria
+    const arte = document.getElementById('arte').value;
+    const cine = document.getElementById('cine').value;
+    const historia = document.getElementById('historia').value;
+    const deporte = document.getElementById('deporte').value;
+    const ciencia = document.getElementById('ciencia').value;
+    const geografia = document.getElementById('geografia').value;
 
-function getChartTitle(chartType) {
-    const titles = {
-        'playerChart': 'Cantidad de Jugadores',
-        'gameChart': 'Partidas Jugadas',
-        'questionChart': 'Preguntas en Juego',
-        'createdQuestionChart': 'Preguntas Creadas',
-        'newUserChart': 'Usuarios Nuevos',
-        'correctAnswerChart': '% Respuestas Correctas',
-        'countryChart': 'Usuarios por País',
-        'genderChart': 'Usuarios por Sexo',
-        'ageChart': 'Usuarios por Edad'
+    // Datos de cantidad de pregunta corectas por categoria
+    const arteCorrectas = document.getElementById('arteCorrectas').value;
+    const cineCorrectas = document.getElementById('cineCorrectas').value;
+    const historiaCorrectas = document.getElementById('historiaCorrectas').value;
+    const deporteCorrectas = document.getElementById('deporteCorrectas').value;
+    const cienciaCorrectas = document.getElementById('cienciaCorrectas').value;
+    const geografiaCorrectas = document.getElementById('geografiaCorrectas').value;
+
+    // Datos de cantidad de pregunta incorectas por categoria
+    const arteIncorrectas = document.getElementById('arteIncorrectas').value;
+    const cineIncorrectas = document.getElementById('cineIncorrectas').value;
+    const historiaIncorrectas = document.getElementById('historiaIncorrectas').value;
+    const deporteIncorrectas = document.getElementById('deporteIncorrectas').value;
+    const cienciaIncorrectas = document.getElementById('cienciaIncorrectas').value;
+    const geografiaIncorrectas = document.getElementById('geografiaIncorrectas').value;
+
+    // Datos del filtro  cantidad de preg facil,normal,dificil de cada categoria
+    const cantidadFacilArte = document.getElementById('cantidadFacilArte').value;
+    const cantidadFacilCine = document.getElementById('cantidadFacilCine').value;
+    const cantidadFacilHistoria = document.getElementById('cantidadFacilHistoria').value;
+    const cantidadFacilDeporte = document.getElementById('cantidadFacilDeporte').value;
+    const cantidadFacilCiencia = document.getElementById('cantidadFacilCiencia').value;
+    const cantidadFacilGeografia = document.getElementById('cantidadFacilGeografia').value;
+
+    const cantidadNormalArte = document.getElementById('cantidadNormalArte').value;
+    const cantidadNormalCine = document.getElementById('cantidadNormalCine').value;
+    const cantidadNormalHistoria = document.getElementById('cantidadNormalHistoria').value;
+    const cantidadNormalDeporte = document.getElementById('cantidadNormalDeporte').value;
+    const cantidadNormalCiencia = document.getElementById('cantidadNormalCiencia').value;
+    const cantidadNormalGeografia = document.getElementById('cantidadNormalGeografia').value;
+
+    const cantidadDificilArte = document.getElementById('cantidadDificilArte').value;
+    const cantidadDificilCine = document.getElementById('cantidadDificilCine').value;
+    const cantidadDificilHistoria = document.getElementById('cantidadDificilHistoria').value;
+    const cantidadDificilDeporte = document.getElementById('cantidadDificilDeporte').value;
+    const cantidadDificilCiencia = document.getElementById('cantidadDificilCiencia').value;
+    const cantidadDificilGeografia = document.getElementById('cantidadDificilGeografia').value;
+
+    // Sample data - replace this with actual data from your backend
+    const ageData = {
+        labels: ['Niños', 'Adolescentes', 'Adultos', 'Ancianos'],
+        values: [ninio, adolescente,adulto,anciano]
     };
-    return titles[chartType] || '';
-}
 
-function showChart(chartType) {
-    const chartContainer = document.getElementById('chartContainer');
-    chartContainer.style.display = 'block';
+    // ORIGINAL
+    const gameQuestionsData = {
+        labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+        values: [arte, cine, historia, deporte, ciencia, geografia],
+        preguntaCorrecta: [arteCorrectas,cineCorrectas, historiaCorrectas, deporteCorrectas, cienciaCorrectas, geografiaCorrectas],
+        preguntaIncorrecta: [arteIncorrectas,cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas],
 
-    if (currentChart) {
-        currentChart.destroy();
+    };
+
+    /*
+    // Escucha el evento DOMContentLoaded para asegurarte de que el DOM está cargado
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obtén el elemento select
+        const selectDificultad = document.getElementById('dificultad');
+
+        // Agrega un listener al evento 'change'
+        selectDificultad.addEventListener('change', function () {
+            // Obtén el valor seleccionado
+            const opcion = selectDificultad.value;
+            const facil = document.getElementById('facil');
+            const normal = document.getElementById('normal');
+            const dificil = document.getElementById('dificil');
+            const elejirOpcion = selectDificultad.value;
+
+            let gameQuestionsData;
+
+            // Realiza acciones según el valor seleccionado
+            if (opcion === elejirOpcion) {
+                gameQuestionsData = {
+                    labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+                    values: [arte, cine, historia, deporte, ciencia, geografia],
+                    preguntaCorrecta: [arteCorrectas, cineCorrectas, historiaCorrectas, deporteCorrectas, cienciaCorrectas, geografiaCorrectas],
+                    preguntaIncorrecta: [arteIncorrectas, cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas]
+                };
+            } else if (opcion === facil) {
+                gameQuestionsData = {
+                    labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+                    values: [cantidadFacilArte, cantidadFacilCine, cantidadFacilHistoria, cantidadFacilDeporte, cantidadFacilCiencia, cantidadFacilGeografia],
+                    preguntaCorrecta: [arteCorrectas, cineCorrectas, historiaCorrectas, deporteCorrectas, cienciaCorrectas, geografiaCorrectas],
+                    preguntaIncorrecta: [arteIncorrectas, cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas]
+                };
+            } else if (opcion === normal) {
+                gameQuestionsData = {
+                    labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+                    values: [cantidadNormalArte, cantidadNormalCine, cantidadNormalHistoria, cantidadNormalDeporte, cantidadNormalCiencia, cantidadNormalGeografia],
+                    preguntaCorrecta: [arteCorrectas, cineCorrectas, historiaCorrectas, deporteCorrectas, cienciaCorrectas, geografiaCorrectas],
+                    preguntaIncorrecta: [arteIncorrectas, cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas]
+                };
+            } else if (opcion === dificil) {
+                gameQuestionsData = {
+                    labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+                    values: [cantidadDificilArte, cantidadDificilCine, cantidadDificilHistoria, cantidadDificilDeporte, cantidadDificilCiencia, cantidadDificilGeografia],
+                    preguntaCorrecta: [arteCorrectas, cineCorrectas, historiaCorrectas, deporteCorrectas, cienciaCorrectas, geografiaCorrectas],
+                    preguntaIncorrecta: [arteIncorrectas, cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas]
+                };
+            }
+
+            // Imprime los datos para depuración
+            console.log(gameQuestionsData);
+        });
+    });*/
+
+
+    showAgeStatsBtn.onclick = function() {
+        ageModal.style.display = 'block';
+        createAgeChart();
+        populateAgeTable();
     }
 
-    currentChartType = chartType;
-    updateChart();
+    showGameQuestionsBtn.onclick = function() {
+        gameQuestionsModal.style.display = 'block';
+        createGameQuestionsChart();
+        populateGameQuestionsTable();
+    }
 
-    // Actualizar el título del gráfico
-    const chartTitle = document.getElementById('chartTitle');
-    chartTitle.textContent = getChartTitle(chartType);
-
-    // Ocultar todos los botones de "Generar PDF"
-    document.querySelectorAll('.generate-pdf-button').forEach(button => {
-        button.style.display = 'none';
+    Array.from(closeButtons).forEach(function(button) {
+        button.onclick = function() {
+            ageModal.style.display = 'none';
+            gameQuestionsModal.style.display = 'none';
+        }
     });
 
-    // Mostrar solo el botón correspondiente al gráfico actual
-    const currentPDFButton = document.getElementById(`generatePDF_${chartType}`);
-    if (currentPDFButton) {
-        currentPDFButton.style.display = 'block';
-    }
-}
-
-function updateChart() {
-    const chartData = data[currentChartType];
-    const timeFilter = document.getElementById('timeFilter').value;
-
-    // Filtrar datos según el tiempo (simulado, aquí puedes agregar lógica real)
-    const filteredData = chartData; // Si necesitas filtrar, aplica lógica aquí.
-
-    // Crear datasets y labels dependiendo del tipo de gráfico
-    let labels = [];
-    let values = [];
-
-    if (currentChartType === 'questionChart' || currentChartType === 'countryChart' || currentChartType === 'genderChart' || currentChartType === 'ageChart') {
-        labels = filteredData.map(item => item.name || item.status);
-        values = filteredData.map(item => item.value || item.count);
-    } else if (currentChartType === 'correctAnswerChart') {
-        labels = filteredData.map(item => item.user);
-        values = filteredData.map(item => item.percentage);
-    } else {
-        labels = filteredData.map(item => item.date);
-        values = filteredData.map(item => item.count);
+    window.onclick = function(event) {
+        if (event.target == ageModal) {
+            ageModal.style.display = 'none';
+        }
+        if (event.target == gameQuestionsModal) {
+            gameQuestionsModal.style.display = 'none';
+        }
     }
 
-    // Crear el gráfico con Chart.js
-    const ctx = document.getElementById('chart').getContext('2d');
-    currentChart = new Chart(ctx, {
-        type: currentChartType === 'countryChart' || currentChartType === 'genderChart' || currentChartType === 'ageChart' ? 'pie' : 'bar',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Datos',
-                    data: values,
+    downloadAgePDFBtn.onclick = function() {
+        window.location.href = '/PW2MVC-PREGUNTADOS/Admin/descargarPDFUsuarioPorEdad';
+    }
+
+    downloadGameQuestionsPDFBtn.onclick = function() {
+        // Implement game questions PDF download logic here
+        console.log('Downloading Game Questions PDF');
+    }
+
+    function createAgeChart() {
+        const ctx = document.getElementById('ageChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ageData.labels,
+                datasets: [{
+                    data: ageData.values,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
+                        'rgba(75, 192, 192, 1)'
                     ],
-                    borderWidth: 1,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribución de Usuarios por Edad'
+                    }
+                }
+            }
+        });
+    }
+
+    function populateAgeTable() {
+        const tableBody = document.querySelector('#ageTable tbody');
+        tableBody.innerHTML = '';
+        ageData.labels.forEach((label, index) => {
+            const row = tableBody.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = label;
+            cell2.textContent = ageData.values[index];
+        });
+    }
+
+    function createGameQuestionsChart() {
+        const ctx = document.getElementById('gameQuestionsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: gameQuestionsData.labels,
+                datasets: [{
+                    label: 'Cantidad de Preguntas',
+                    data: gameQuestionsData.values,
+                    backgroundColor: [
+                        '#ff9800', '#9c27b0', '#ffeb3b', '#f44336', '#4caf50', '#2196f3'
+                    ],
+                    borderColor: '#2C3E50',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#ECF0F1'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribución de Preguntas por Categoría',
+                        color: '#ECF0F1'
+                    }
                 },
-            ],
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#ECF0F1'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#ECF0F1'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function populateGameQuestionsTable() {
+        const tableBody = document.querySelector('#gameQuestionsTable tbody');
+        tableBody.innerHTML = '';
+        gameQuestionsData.labels.forEach((label, index) => {
+            const row = tableBody.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            const cell4 = row.insertCell(3);
+
+            cell1.textContent = label;
+            cell2.textContent = gameQuestionsData.values[index];
+            cell3.textContent = gameQuestionsData.preguntaCorrecta[index];
+            cell4.textContent = gameQuestionsData.preguntaIncorrecta[index];
+        });
+    }
+});
+
+// combo select
+/*
+document.getElementById('dificultadSelect').addEventListener('change', function() {
+    let dificultadSeleccionada = this.value;
+    if (dificultadSeleccionada) {
+        fetch('/ruta-al-servidor-para-obtener-datos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ dificultad: dificultadSeleccionada })
+        })
+            .then(response => response.json())
+            .then(data => {
+                actualizarGrafico(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+*/
+function actualizarGrafico(data) {
+    // Aquí puedes usar una librería de gráficos como Chart.js para actualizar el gráfico
+    let ctx = document.getElementById('grafico').getContext('2d');
+    if (window.grafico) {
+        window.grafico.destroy(); // Destruir el gráfico existente antes de crear uno nuevo
+    }
+    window.grafico = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+            datasets: [{
+                label: `Cantidad de preguntas - Dificultad ${data.dificultad}`,
+                data: data.cantidadPorCategoria,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
         },
         options: {
             responsive: true,
-            plugins: {
-                legend: {
-                    display: currentChartType === 'countryChart' || currentChartType === 'genderChart' || currentChartType === 'ageChart',
-                },
-                title: {
-                    display: true,
-                    text: getChartTitle(currentChartType)
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
-            },
-        },
-    });
-
-    updateTable(filteredData);
-}
-
-function updateTable(data) {
-    const tableBody = document.querySelector('#dataTable tbody');
-    tableBody.innerHTML = '';
-    data.forEach(item => {
-        const row = tableBody.insertRow();
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-        cell1.textContent = item.date || item.status || item.user || item.name;
-        cell2.textContent = item.count || item.percentage || item.value;
+            }
+        }
     });
 }
+// FIN
 
-function generatePDF(chartType) {
-    const phpRoute = `/generar-pdf.php?tipo=${chartType}`;
-    window.location.href = phpRoute;
-}
-
-// Inicializar el primer gráfico al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    showChart('playerChart');
-});

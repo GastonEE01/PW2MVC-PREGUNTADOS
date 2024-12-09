@@ -1,7 +1,7 @@
 -- Arrancan los inserts
 INSERT INTO Categoria (Categoria, Color) VALUES ('Arte', 'Naranja');
 INSERT INTO Categoria (Categoria, Color) VALUES ('Cine', 'Morado');
-INSERT INTO Categoria (Categoria, Color) VALUES ('Deportes', 'Rojo');
+INSERT INTO Categoria (Categoria, Color) VALUES ('Deporte', 'Rojo');
 INSERT INTO Categoria (Categoria, Color) VALUES ('Historia', 'Amarillo');
 INSERT INTO Categoria (Categoria, Color) VALUES ('Ciencia', 'Verde');
 INSERT INTO Categoria (Categoria, Color) VALUES ('Geografía', 'Azul');
