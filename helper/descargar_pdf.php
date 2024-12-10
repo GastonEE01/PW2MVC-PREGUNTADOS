@@ -99,7 +99,7 @@ class descargar_pdf
         $dompdf->render();
 
         // Enviar el PDF al navegador para descarga
-        $dompdf->stream('estadisticas_preguntas_juego.pdf', ['Attachment' => 0]);
+        $dompdf->stream('estadisticas_preguntas_juego.pdf', ['Attachment' => 1]);
     }
 
 
@@ -196,7 +196,7 @@ class descargar_pdf
         $dompdf->render();
 
         // Enviar el PDF al navegador para descarga
-        $dompdf->stream('usuarios_por_edad.pdf', ['Attachment' => 0]);
+        $dompdf->stream('usuarios_por_edad.pdf', ['Attachment' => 1]);
     }
 
 
