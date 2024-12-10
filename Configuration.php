@@ -13,9 +13,8 @@
     include_once ("helper/Router.php");
     include_once ("helper/SenderEmailPHPMailer.php");
     include_once ("helper/descargar_pdf.php");
-include_once ("helper/GeneradorQR.php");
-
-include_once("controller/AdminController.php");
+    include_once ("helper/GeneradorQR.php");
+    include_once("controller/AdminController.php");
     include_once("model/AdminModel.php");
 
     include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -84,7 +83,6 @@ include_once("controller/AdminController.php");
         }
         public static function getRouter()
         {
-          //  return new Router("getPartidaController", "get");
             return new Router("getUsuarioController", "vistaLogin");
 
         }

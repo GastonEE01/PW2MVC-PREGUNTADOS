@@ -30,8 +30,8 @@ class UsuarioController
     public function vistaLogin()
     {
         // Si pongo esto se rompe la parte de las pregunta partida
-    //    $sesion = new ManejoSesiones();
-        //$sesion->limpiarCache();
+        // $sesion = new ManejoSesiones();
+        // $sesion->limpiarCache();
         $this->presenter->render("view/login.mustache");
     }
 
@@ -132,7 +132,7 @@ class UsuarioController
         $data['contrasenia'] = password_hash($data['contrasenia'], PASSWORD_DEFAULT);
         // Generar un token antes de crear el usuario
         $token = bin2hex(random_bytes(16));
-        $userID =  $this->model->crearUsuario($data,$token); // Pasar el token aquí
+        $userID =  $this->model->crearUsuario($data,$token);
         if ($userID['affected_rows']) {
             $this->senderEmailPHPMailer->sendActivationEmail($userID['user_id'], $data['email'], $token);
         } else {
@@ -183,11 +183,6 @@ class UsuarioController
                         }
                     }
                 }
-                // Valido que el usuario tenga la sesion iniciada, sino lo mando al login
-            /*    if($user =='Invitado' || $user=="admin")
-                    header("Location: /PW2MVC-PREGUNTADOS/Usuario/login");
-                    exit();*/
-
                     $this->presenter->render('view/editor.mustache',[
                     'nombre_usuario' => $user['nombre_usuario'],
                     'id' => $id_usuario,
@@ -197,12 +192,6 @@ class UsuarioController
             } elseif ($user['rol'] == 3) {
                 header("Location: /PW2MVC-PREGUNTADOS/Admin/vistaAdmin");
                 exit();
-               /* $this->presenter->render('view/admin.mustache',[
-                'nombre_usuario' => $user['nombre_usuario'],
-                    'id' => $id_usuario,
-                    'Path_img_perfil' => $fotoIMG,
-                ]);*/
-
             } else {
                 $this->presenter->render('view/home.mustache', ['partidas' => $partidas,
                     'nombre_usuario' => $user['nombre_usuario'],
@@ -212,12 +201,6 @@ class UsuarioController
             }
             exit;
         } else {
-            // Renderiza el formulario con un mensaje de error
-
-          /*  if (empty($user)) {
-                $this->vistaLogin();
-                return;
-            }*/
             $this->presenter->render("view/login.mustache", [
                 'error' => 'Nombre de usuario o contraseña incorrectos'
             ]);
@@ -226,7 +209,6 @@ class UsuarioController
 
     public function usuarioSugerirPregunta()
     {
-        // Inicializa la sesión y obtiene al usuario
         $sesion = new ManejoSesiones();
         $id_usuario = $sesion->obtenerUsuarioID();
 
@@ -240,7 +222,6 @@ class UsuarioController
             'Categoria' => $_POST['categoriaElegida'] ?? ''
         ];
 
-        // Llamar al modelo para crear la sugerencia de pregunta
         $this->model->crearSugerenciaPregunta($data, $id_usuario);
         $partidas = $this->modelPartida->obtenerPartidasEnCurso($id_usuario);
         $mejoresPuntajesJugador = $this->modelPartida->trearMejoresPuntajesJugadores();

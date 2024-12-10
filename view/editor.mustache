@@ -11,19 +11,16 @@
 <header class="site-header">
     <div class="background-animation"></div>
 
-    <!-- Logo Section -->
     <div class="logo-container">
         <img src=https://i.imgur.com/AdRHbcF.png"  alt="Logo de la empresa" class="logo">
     </div>
 
-    <!-- Navigation Section -->
     <nav class="header-nav">
         <a href="/PW2MVC-PREGUNTADOS/Usuario/cerrarSesion">
             <button class="logout-button">Cerrar sesión</button>
         </a>
     </nav>
 
-    <!-- User Info Section -->
     <div class="user-container">
         <div class="user-circle">
             <img src="/PW2MVC-PREGUNTADOS/public/imagenes/usuarios/{{Path_img_perfil}}" alt="Foto de perfil"  class="profile-pic">
@@ -33,7 +30,6 @@
 </header>
 
 <h2>Preguntas sugeridas por usuarios</h2>
-<!-- Main Content Section -->
 <div class="contenedorTabla">
     <table>
         <thead>
@@ -93,8 +89,7 @@
                                 <input type="text" id="OpcionD" name="OpcionD" value="{{OpcionD}}" required>
 
                                 <label for="OpcionCorrecta">Opción Correcta:</label>
-                               <!-- <input type="text" id="OpcionCorrecta" name="OpcionCorrecta" value="{{OpcionCorrecta}}" required>
--->
+
                                 <select id="OpcionCorrecta" name="OpcionCorrecta" value="{{OpcionCorrecta}}" required>
                                     <option value="" disabled selected>Selecciona la opción correcta</option>
                                     <option value="A">A</option>
@@ -103,8 +98,6 @@
                                     <option value="D">D</option>
                                 </select>
                                 <label for="Categoria">Categoría:</label>
-   <!--                             <input type="text" id="Categoria" name="Categoria" value="{{Categoria}}" required>
--->
                                 <select id="Categoria" name="Categoria"  value="{{Categoria}}" required>
                                     <option value="" disabled selected>Selecciona la opción correcta</option>
                                     <option value="Arte">Arte</option>

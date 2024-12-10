@@ -26,12 +26,6 @@ class Database
         return mysqli_query($this -> conn, $sql);
     }
 
-  /*  public function execute($sql, $param = [])
-    {
-        mysqli_query($this -> conn, $sql);
-    }
-*/
-
     public function execute($sql, $params = []) {
         $stmt = mysqli_prepare($this->conn, $sql);
 
@@ -43,8 +37,8 @@ class Database
         if (!empty($params)) {
             $types = '';
             foreach ($params as $param) {
-                $types .= is_int($param) ? 'i' : 's'; // 'i' para enteros, 's' para strings
-            } // Asumiendo que todos los parámetros son strings
+                $types .= is_int($param) ? 'i' : 's';
+            }
             mysqli_stmt_bind_param($stmt, $types, ...$params);
         }
 
@@ -52,7 +46,7 @@ class Database
         $result = mysqli_stmt_execute($stmt);
 
         if ($result === false) {
-            mysqli_stmt_close($stmt); // Cerrar el stmt antes de lanzar la excepción
+            mysqli_stmt_close($stmt);
             throw new mysqli_sql_exception(mysqli_error($this->conn));
         }
         if (stripos($sql, 'SELECT') === 0) {
@@ -60,13 +54,13 @@ class Database
             $resultSet = mysqli_stmt_get_result($stmt);
             $data = mysqli_fetch_all($resultSet, MYSQLI_ASSOC);
             mysqli_free_result($resultSet);
-            mysqli_stmt_close($stmt); // Cerrar el stmt después de obtener los resultados
-            return $data; // Devuelve todos los resultados como un array asociativo
+            mysqli_stmt_close($stmt);
+            return $data;
         } else {
             // Para consultas que no son SELECT
             $affectedRows = mysqli_stmt_affected_rows($stmt);
-            $insertedId = mysqli_insert_id($this->conn); // ID del último registro insertado
-            mysqli_stmt_close($stmt); // Cerrar el stmt después de obtener las filas afectadas
+            $insertedId = mysqli_insert_id($this->conn);
+            mysqli_stmt_close($stmt);
 
             return [
                 'affected_rows' => $affectedRows,

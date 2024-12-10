@@ -57,10 +57,10 @@ class ManejoSesiones
         session_destroy();
     }
 
-    public function usuarioAutenticado()
+    /*public function usuarioAutenticado()
     {
         return isset($_SESSION['usuario']);
-    }
+    }*/
 
     public function guardarIdPartida($idPartida)
     {
@@ -78,12 +78,12 @@ class ManejoSesiones
         return $idPartida;
     }
 
-    public function borrarIdPartida()
+   /* public function borrarIdPartida()
     {
         if (isset($_SESSION['partida']['id'])) {
             unset($_SESSION['partida']['id']);
             error_log("ID de partida eliminado.");
         }
-    }
+    }*/
 
 }

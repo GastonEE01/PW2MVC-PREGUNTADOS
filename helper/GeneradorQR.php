@@ -10,9 +10,9 @@ class GeneradorQR
         $this->outputDir = $outputDir;
 
        //  Asegúrate de que el directorio exista
-        if (!is_dir($this->outputDir)) {
+       /* if (!is_dir($this->outputDir)) {
             mkdir($this->outputDir, 0777, true);
-        }
+        }*/
     }
 
     public function generarQRUsuario($nombre_usuario,$ciudad,$pais,$gmail)
@@ -27,10 +27,5 @@ class GeneradorQR
         //8 es el tamaño del pixelado del QR (8 es el mas grande).
         return $nombreArchivo; // Retorna la ruta del archivo generado
 
-     /*   $datos = "Nombre:Cacho";
-        QRcode::png($datos, false, QR_ECLEVEL_L, 8);
-
-
-        QRcode::png('xdlfjhsdfljghsfd', 'cacho.png');*/
     }
 }

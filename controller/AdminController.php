@@ -33,14 +33,6 @@ class AdminController
         $dataEdad = $this->model->clasificarUsuariosPorEdad();
         $dataCantidadPreguntasPorDificultad = $this->model->cantidadDePreguntasPorDificultadYCategoria();
 
-       /* $categorias = [];
-        foreach ($dataPregunta as $pregunta) {
-            $categorias[] = [
-                'NombreCategoria' => $pregunta['NombreCategoria'],
-                'TotalPreguntas' => $pregunta['TotalPreguntas']
-            ];
-        }*/
-
         $this->presenter->render('view/admin.mustache', [
             'nombre_usuario' => $user['nombre_usuario'],
             'id' => $id_usuario,
@@ -93,13 +85,10 @@ class AdminController
     }
 
     public function obtenerUsuarioPorEdad() {
-        // Obtener los datos reales de la base de datos
         $data = $this->model->clasificarUsuariosPorEdad();
 
-        // Generar el gráfico
         $this->generarGraficoUsuarioPorEdad($data);
 
-        // Generar y descargar el PDF
         $this->generarPDF->descargarPDFUsuarioPorEdad($data);
     }
 
@@ -123,7 +112,7 @@ class AdminController
         // Fondo blanco
         imagefill($image, 0, 0, $white);
 
-        // Dibujar el gráfico circular
+        // Grafico circular
         $total = array_sum($data);
         $startAngle = 0;
         $centerX = $width / 2;
@@ -136,7 +125,6 @@ class AdminController
             $startAngle = $endAngle;
         }
 
-        // Guardar la imagen como archivo
         $filePath = __DIR__ . '/../public/imagenes/grafico/graficoUsuarioPorEdad.png';
         imagepng($image, $filePath);
         imagedestroy($image);
@@ -146,10 +134,8 @@ class AdminController
     public function obtenerEstadisticaPregunta() {
         $data = $this->model->traerPreguntasCorrectas();
 
-        // Generar el gráfico
         $this->generarGraficoEstadisticaPregunta($data);
 
-        // Generar y descargar el PDF
         $this->generarPDF->descargarPDFEstadisticaPreguntaDelJuego($data);
     }
 
@@ -172,7 +158,7 @@ class AdminController
         $barWidth = 100;
         $barSpacing = 100;
         $baseLine = $height - 50;
-        $font = 5;  // Tamaño de la fuente
+        $font = 5;
 
         $labels = ['Correctas', 'Incorrectas'];
         $x = $barSpacing;
@@ -183,12 +169,10 @@ class AdminController
             $x += $barWidth + $barSpacing;
         }
 
-        // Guardar la imagen como archivo
         $filePath = __DIR__ . '/../public/imagenes/grafico/graficoEstadisticasPreguntas.png';
         imagepng($image, $filePath);
         imagedestroy($image);
     }
-
 
     public function filtroPreguntaDificultad() {
         $dificultad = $_POST['dificultad'] ?? null;

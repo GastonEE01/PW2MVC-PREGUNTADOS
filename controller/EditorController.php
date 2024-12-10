@@ -30,11 +30,6 @@ class EditorController
         $reportes = $this->modelUsuario-> obtenerReportes();
         $fotoIMG = $user['Path_img_perfil'] ?? 'Invitado';
 
-     /*   if (empty($user)) {
-            $this->vistaLogin();
-            return;
-        }*/
-
         $this->presenter->render('view/editor.mustache', [
             'nombre_usuario' => $user['nombre_usuario'],
             'id' => $id_usuario,
@@ -47,9 +42,8 @@ class EditorController
     public function eliminarPregunta()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ID'])) {
-            // Obtener el ID de la pregunta a eliminar
             $id = $_POST['ID'];
-            print_r($id); // Asegúrate de que muestra un valor correcto
+            print_r($id);
 
             $this->model->eliminarPregunta($id);
         }
@@ -59,10 +53,7 @@ class EditorController
 
     public function agregarPregunta()
     {
-        // Comprobamos que sea una solicitud POST y que se haya enviado un ID
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ID'])) {
-
-            // Obtener el ID de la pregunta a eliminar
 
             $id = $_POST['ID'];
 
@@ -79,22 +70,18 @@ class EditorController
             $OpcionCorrecta=isset($_POST['OpcionCorrecta'])?$_POST['OpcionCorrecta']:null;
 
             $Categoria=isset($_POST['Categoria'])?$_POST['Categoria']:null;
-            // Asegúrate de que los parámetros necesarios estén presentes
+
             if ($pregunta !=null && $OpcionA !=null  && $OpcionB !=null&& $OpcionC !=null&& $OpcionD !=null&& $OpcionCorrecta !=null && $Categoria!=null) {
-                // Llamar al modelo para agregar la pregunta y sus respuestas
                 try {
 
                     $this->model->agregarPregunta($pregunta,$OpcionA,$OpcionB,$OpcionC,$OpcionD,$OpcionCorrecta,$Categoria);
-                    // Llamar al método para eliminar la pregunta en la tabla sugerencia usando el ID
                     $this->model->eliminarPregunta($id);
                     $this->vistaEditor();
 
                 } catch (Exception $e) {
-                    // Manejar error si ocurre
                     echo "Error al agregar la pregunta: " . $e->getMessage() ;
                 }
             } else {
-                // Si faltan parámetros, mostrar un mensaje de error
                 echo "Faltan parámetros para agregar la pregunta.";
             }
         } else {
@@ -102,8 +89,6 @@ class EditorController
         }
     }
     public function modificarPregunta() {
-        // Extraer los datos
-
         $Usuario_id = isset($_POST['Usuario_id'])?$_POST['Usuario_id']:null;
 
         $Pregunta=isset($_POST['Pregunta'])?$_POST['Pregunta']:null;
@@ -133,7 +118,6 @@ class EditorController
 
     public function rechazarReporte() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ID'])) {
-            // Obtener el ID de la pregunta a eliminar
             $idReporte = $_POST['ID'];
 
             $this->model->eliminarReporte($idReporte);
@@ -143,7 +127,6 @@ class EditorController
 
     public function aprobarReporte() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ID']) && isset($_POST['Pregunta_id'])) {
-            // Obtener el ID de la pregunta a eliminar
             $idReporte = $_POST['ID'];
             $idPregunta = $_POST['Pregunta_id'];
 

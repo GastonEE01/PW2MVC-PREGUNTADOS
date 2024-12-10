@@ -387,5 +387,5 @@ INSERT INTO Respuesta (Texto_respuesta, Es_correcta, Pregunta_id) VALUES ('Reino
 -- Crear tres usuarios
 INSERT INTO Usuario (nombre, nombre_usuario, contrasenia, fecha_nacimiento, pais, sexo, ciudad, email, Path_img_perfil, activo, token, latitudMapa, longitudMapa, rol)
 VALUES
-    ('admin', 'admin', '$2y$10$SarjfMTLpHKo3qAOOdn4Q.WlXRI5uXZSGw5OuF2YMg6FbEqtTI0f2', '1968-08-12', 'Argentina', 'masculino', 'Buenos Aires', 'estevezgaston01@gmail.com', NULL, 1, NULL, NULL, NULL, 3),
-    ('editor', 'editor', '$2y$10$Yl8F0Hz6XESgaRqFiwzHX.fH2V.d5JU8VkL8/plaPlFSKFcDIcBE2', '1970-04-22', 'Argentina', 'femenino', 'Buenos Aires', 'estevezgaston01@gmail.com', NULL, 1, NULL, NULL, NULL, 2);
+    ('admin', 'admin', '$2y$10$SarjfMTLpHKo3qAOOdn4Q.WlXRI5uXZSGw5OuF2YMg6FbEqtTI0f2', '1968-08-12', 'Argentina', 'masculino', 'Buenos Aires', 'estevezgaston01@gmail.com', 'admin.jpg', 1, NULL, NULL, NULL, 3),
+    ('editor', 'editor', '$2y$10$Yl8F0Hz6XESgaRqFiwzHX.fH2V.d5JU8VkL8/plaPlFSKFcDIcBE2', '1970-04-22', 'Argentina', 'femenino', 'Buenos Aires', 'estevezgaston01@gmail.com', 'editor.jpg', 1, NULL, NULL, NULL, 2);

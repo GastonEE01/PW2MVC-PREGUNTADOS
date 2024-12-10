@@ -38,7 +38,7 @@ CREATE TABLE Pregunta (
 CREATE TABLE Respuesta (
 ID INT PRIMARY KEY AUTO_INCREMENT,
 Texto_respuesta TEXT NOT NULL,
-Es_correcta BOOLEAN DEFAULT FALSE, -- Solo una respuesta tendrá TRUE para cada pregunta
+Es_correcta BOOLEAN DEFAULT FALSE,
 Pregunta_id INT,
 FOREIGN KEY (Pregunta_id) REFERENCES Pregunta(ID)
 );
@@ -77,7 +77,7 @@ CREATE TABLE Sugerencia (
                             OpcionB VARCHAR(255) NOT NULL,
                             OpcionC VARCHAR(255) NOT NULL,
                             OpcionD VARCHAR(255) NOT NULL,
-                            OpcionCorrecta CHAR(1) NOT NULL, -- para almacenar la letra de la opción correcta
+                            OpcionCorrecta CHAR(1) NOT NULL,
                             Categoria VARCHAR(50),
                             Usuario_id INT,
                             FOREIGN KEY (Usuario_id) REFERENCES Usuario(id)

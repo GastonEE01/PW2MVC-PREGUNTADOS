@@ -13,20 +13,16 @@ class descargar_pdf
 
     public function descargarPDFEstadisticaPreguntaDelJuego($data)
     {
-        // Configuración de Dompdf
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
 
-        // Ruta del archivo de imagen generado
         $imagePath = __DIR__ . '/../public/imagenes/grafico/graficoEstadisticasPreguntas.png';
 
-        // Convertir la imagen a base64 para incluirla directamente en el HTML
         $imageData = base64_encode(file_get_contents($imagePath));
         $src = 'data:image/png;base64,' . $imageData;
 
-        // Contenido HTML del PDF
         $html = "
         <!DOCTYPE html>
         <html lang='es'>
@@ -98,27 +94,22 @@ class descargar_pdf
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        // Enviar el PDF al navegador para descarga
         $dompdf->stream('estadisticas_preguntas_juego.pdf', ['Attachment' => 1]);
     }
 
 
     public function descargarPDFUsuarioPorEdad($data)
     {
-        // Configuración de Dompdf
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
 
-        // Ruta del archivo de imagen generado
         $imagePath = __DIR__ . '/../public/imagenes/grafico/graficoUsuarioPorEdad.png';
 
-        // Convertir la imagen a base64 para incluirla directamente en el HTML
         $imageData = base64_encode(file_get_contents($imagePath));
         $src = 'data:image/png;base64,' . $imageData;
 
-        // Contenido HTML del PDF
         $html = "
         <!DOCTYPE html>
         <html lang='es'>
@@ -195,7 +186,6 @@ class descargar_pdf
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        // Enviar el PDF al navegador para descarga
         $dompdf->stream('usuarios_por_edad.pdf', ['Attachment' => 1]);
     }
 
