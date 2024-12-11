@@ -6,7 +6,7 @@ function mostrarFondo(categoria) {
         colorFondo = '#ff9800';
     } else if (categoria == 'Cine') {
         colorFondo = '#9c27b0';
-    } else if (categoria == 'Deportes') {
+    } else if (categoria == 'Deporte') {
         colorFondo = '#f44336';
     } else if (categoria == 'Historia') {
         colorFondo = '#ffeb3b';

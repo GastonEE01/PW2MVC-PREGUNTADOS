@@ -29,7 +29,7 @@ class AdminController
         }
         $dataPreguntaPorCategoria  = $this->model->cantidadDePreguntaPorCategoria();
         $dataCantidadPreguntaCorrectaCategoria = $this->model->cantidadDePreguntaCorrectaPorCategoria();
-        $dataCantidadPreguntaIncorrectaCategoria = $this->model->cantidadDePreguntaIncorrectaPorCategoria();
+        $porcentajeDeCategoriaIncorrectaYCorrecta = $this->model->cantidadDePreguntaIncorrectaPorCategoria();
         $dataEdad = $this->model->clasificarUsuariosPorEdad();
         $dataCantidadPreguntasPorDificultad = $this->model->cantidadDePreguntasPorDificultadYCategoria();
 
@@ -43,24 +43,23 @@ class AdminController
             'ancianos' => $dataEdad[3],
             'arte' => $dataPreguntaPorCategoria[0], // Arte
             'cine' => $dataPreguntaPorCategoria[1], // Cine
-            'historia' => $dataPreguntaPorCategoria[2], // Historia
-            'deporte' => $dataPreguntaPorCategoria[3], // Deporte
+            'historia' => $dataPreguntaPorCategoria[2], // Deporte
+            'deporte' => $dataPreguntaPorCategoria[3], // Historia
             'ciencia' => $dataPreguntaPorCategoria[4], // Ciencia
-            'geografia' => $dataPreguntaPorCategoria[5],
-            'preguntaCorrectaArte' => $dataPreguntaPorCategoria[5],
+            'geografia' => $dataPreguntaPorCategoria[5],// Geografia
             // Pasar la cantidad de preguntas correctas e incorrectas por categoría
-            'arteCorrectas' => $dataCantidadPreguntaCorrectaCategoria['Arte'],
-            'arteIncorrectas' => $dataCantidadPreguntaIncorrectaCategoria['Arte'],
-            'cineCorrectas' => $dataCantidadPreguntaCorrectaCategoria['Cine'],
-            'cineIncorrectas' => $dataCantidadPreguntaIncorrectaCategoria['Cine'],
-            'historiaCorrectas' => $dataCantidadPreguntaCorrectaCategoria['Historia'],
-            'historiaIncorrectas' => $dataCantidadPreguntaIncorrectaCategoria['Historia'],
-            'deporteCorrectas' => $dataCantidadPreguntaCorrectaCategoria['Deporte'],
-            'deporteIncorrectas' => $dataCantidadPreguntaIncorrectaCategoria['Deporte'],
-            'cienciaCorrectas' => $dataCantidadPreguntaCorrectaCategoria['Ciencia'],
-            'cienciaIncorrectas' => $dataCantidadPreguntaIncorrectaCategoria['Ciencia'],
-            'geografiaCorrectas' => $dataCantidadPreguntaCorrectaCategoria['Geografía'],
-            'geografiaIncorrectas' => $dataCantidadPreguntaIncorrectaCategoria['Geografía'],
+            'arteCorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[0][0],
+            'arteIncorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[0][1],
+            'cineCorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[1][0],
+            'cineIncorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[1][1],
+            'historiaCorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[2][0],
+            'historiaIncorrectas' =>$porcentajeDeCategoriaIncorrectaYCorrecta[2][1],
+            'deporteCorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[3][0],
+            'deporteIncorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[3][1],
+            'cienciaCorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[4][0],
+            'cienciaIncorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[4][1],
+            'geografiaCorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[5][0] ,
+            'geografiaIncorrectas' => $porcentajeDeCategoriaIncorrectaYCorrecta[5][1],
             // Filtro de cantidad de preguntado por dificultad de cada categoria
             'cantidadFacilArte' => $dataCantidadPreguntasPorDificultad['Arte'][1],
             'cantidadNormalArte' => $dataCantidadPreguntasPorDificultad['Arte'][2],

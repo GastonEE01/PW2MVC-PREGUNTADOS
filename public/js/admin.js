@@ -59,25 +59,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const cantidadDificilCiencia = document.getElementById('cantidadDificilCiencia').value;
     const cantidadDificilGeografia = document.getElementById('cantidadDificilGeografia').value;
 
-    // Sample data - replace this with actual data from your backend
     const ageData = {
         labels: ['Niños', 'Adolescentes', 'Adultos', 'Ancianos'],
         values: [ninio, adolescente,adulto,anciano]
     };
 
-    // ORIGINAL
     const gameQuestionsData = {
         labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
-        values: [arte, cine, historia, deporte, ciencia, geografia],
-        preguntaCorrecta: [arteCorrectas,cineCorrectas, historiaCorrectas, deporteCorrectas, cienciaCorrectas, geografiaCorrectas],
-        preguntaIncorrecta: [arteIncorrectas,cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas],
+        values: [arte, cine, deporte, historia, ciencia, geografia],
+        preguntaCorrecta: [arteCorrectas,cineCorrectas,deporteCorrectas ,historiaCorrectas , cienciaCorrectas, geografiaCorrectas],
+        preguntaIncorrecta: [arteIncorrectas,cineIncorrectas, deporteIncorrectas,historiaIncorrectas, cienciaIncorrectas, geografiaIncorrectas],
 
     };
 
     /*
-    // Escucha el evento DOMContentLoaded para asegurarte de que el DOM está cargado
     document.addEventListener("DOMContentLoaded", function () {
-        // Obtén el elemento select
         const selectDificultad = document.getElementById('dificultad');
 
         // Agrega un listener al evento 'change'
@@ -121,12 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     preguntaIncorrecta: [arteIncorrectas, cineIncorrectas, historiaIncorrectas, deporteIncorrectas, cienciaIncorrectas, geografiaIncorrectas]
                 };
             }
-
-            // Imprime los datos para depuración
-            console.log(gameQuestionsData);
         });
     });*/
-
 
     showAgeStatsBtn.onclick = function() {
         ageModal.style.display = 'block';
@@ -310,7 +302,7 @@ function actualizarGrafico(data) {
     window.grafico = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'],
+            labels: ['Arte', 'Cine', 'Deporte', 'Historia', 'Ciencia', 'Geografía'],
             datasets: [{
                 label: `Cantidad de preguntas - Dificultad ${data.dificultad}`,
                 data: data.cantidadPorCategoria,

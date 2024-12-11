@@ -81,7 +81,7 @@ class AdminModel
 
     public function cantidadDePreguntaPorCategoria()
     {
-        $categoriasOrdenadas = ['Arte', 'Cine', 'Historia', 'Deporte', 'Ciencia', 'Geografía'];
+        $categoriasOrdenadas = ['Arte', 'Cine', 'Deporte', 'Historia', 'Ciencia', 'Geografía'];
         $cantidadPreguntas = [];
 
         // Preparar la consulta SQL para contar preguntas por categoría
@@ -133,15 +133,59 @@ class AdminModel
         return $data;
     }
 
-    public function cantidadDePreguntaIncorrectaPorCategoria() {
-        $sql = "SELECT 
+    public function cantidadDePreguntaIncorrectaPorCategoria()
+    {
+
+        $sql = "SELECT * FROM Pregunta ";
+
+        $result = $this->database->execute($sql, []);
+
+        $preguntaArte = [];
+        $preguntaCine = [];
+        $preguntaDeporte = [];
+        $preguntaHistoria = [];
+        $preguntaCiencia = [];
+        $preguntaGeografia = [];
+        foreach ($result as $respuestas) {
+            switch ($respuestas['Categoria_id']) {
+                case 1:
+                    array_push($preguntaArte,$respuestas) ;
+                    break;
+                case 2:
+                    array_push($preguntaCine,$respuestas) ;
+                    break;
+                case 3:
+                    array_push($preguntaDeporte,$respuestas) ;
+                    break;
+                case 4:
+                    array_push($preguntaHistoria,$respuestas) ;
+                    break;
+                case 5:
+                    array_push($preguntaCiencia,$respuestas) ;
+                    break;
+                case 6:
+                    array_push($preguntaGeografia,$respuestas) ;
+                    break;
+            }
+        }
+
+        $artePorcentajeIncorrecto = $this->porcentajeDePreguntaIncorrectaCategoria($preguntaArte);
+        $cinePorcentajeIncorrecto = $this->porcentajeDePreguntaIncorrectaCategoria($preguntaCine);
+        $deportePorcentajeIncorrecto = $this->porcentajeDePreguntaIncorrectaCategoria($preguntaDeporte);
+        $historiaPorcentajeIncorrecto = $this->porcentajeDePreguntaIncorrectaCategoria($preguntaHistoria);
+        $cienciaPorcentajeIncorrecto = $this->porcentajeDePreguntaIncorrectaCategoria($preguntaCiencia);
+        $geografiaPorcentajeIncorrecto = $this->porcentajeDePreguntaIncorrectaCategoria($preguntaGeografia);
+        $totalPorcentajeIncorrectoCategoria = [$artePorcentajeIncorrecto, $cinePorcentajeIncorrecto, $deportePorcentajeIncorrecto, $historiaPorcentajeIncorrecto, $cienciaPorcentajeIncorrecto, $geografiaPorcentajeIncorrecto];
+        return $totalPorcentajeIncorrectoCategoria;
+
+        /* $sql = "SELECT
                 c.Categoria,
                 COUNT(DISTINCT CASE WHEN p.acertada = 0 THEN p.ID END) AS TotalPreguntasIncorrectas
-            FROM 
+            FROM
                 Categoria c
-            JOIN 
+            JOIN
                 Pregunta p ON c.ID = p.Categoria_id
-            GROUP BY 
+            GROUP BY
                 c.Categoria";
 
         $result = $this->database->execute($sql, []);
@@ -156,7 +200,25 @@ class AdminModel
             $data[$row['Categoria']] = $row['TotalPreguntasIncorrectas'];
         }
 
-        return $data;
+        return $data;*/
+    }
+    private function porcentajeDePreguntaIncorrectaCategoria($listaPreguntaCategoria)
+    {
+        $correctas=0;
+        $incorrectas=0;
+        foreach ($listaPreguntaCategoria as $respuestas){
+            $respuestasCorrectas=$respuestas['acertada'];
+            $respuestasIncorrectas=$respuestas['mostrada']-$respuestas['acertada'];
+
+            $correctas+=$respuestasCorrectas;
+            $incorrectas+=$respuestasIncorrectas;
+        }
+        $sumaDeAmbas=$correctas+$incorrectas;
+        $porcentajeCorrectas =round(($correctas / $sumaDeAmbas) * 100, 2) ;
+        $porcentajeIncorrectas = round( ($incorrectas / $sumaDeAmbas) * 100,2);
+
+        $correctaseIncorrectas=[$porcentajeCorrectas,$porcentajeIncorrectas];
+        return $correctaseIncorrectas;
     }
 
     public function cantidadDePreguntasPorDificultadYCategoria() {
@@ -195,5 +257,7 @@ class AdminModel
 
         return $data;
     }
+
+
 
 }
