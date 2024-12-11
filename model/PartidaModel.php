@@ -15,11 +15,11 @@ class PartidaModel
         $Status_ids = 1;
         $puntaje = 0;
 
-        $sql = "INSERT INTO partida (Descripcion,Puntuacion,Puntuacion_porcentaje,Usuario_id,Fecha_creada,Fecha_finalizada) 
-            VALUES ( ?, ?, ?, ? ,? ,?)";
+        $sql = "INSERT INTO partida (Descripcion,Puntuacion,Usuario_id,Fecha_creada,Fecha_finalizada) 
+            VALUES ( ?, ?, ?, ? ,?)";
 
         try {
-            $result = $this->database->execute($sql, [ $descripcion, $puntaje, 0, $id_usuario, $fechaInicio, null]);
+            $result = $this->database->execute($sql, [ $descripcion, $puntaje,  $id_usuario, $fechaInicio, null]);
             return $result;
         } catch (PDOException $e) {
             error_log("Error al crear partida: " . $e->getMessage());
@@ -73,7 +73,6 @@ class PartidaModel
         u.nombre_usuario,
          p.ID AS id_partida,
          p.Puntuacion,
-        p.Puntuacion_porcentaje,
         p.Fecha_creada
         FROM 
         Usuario u

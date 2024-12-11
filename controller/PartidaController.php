@@ -18,6 +18,11 @@ class PartidaController
         $this->presenter->render("view/login.mustache");
     }
 
+    public function volverAlHome()
+    {
+        header("Location: /PW2MVC-PREGUNTADOS/Usuario/vistaHome");
+        exit();
+    }
     public function crearPartida()
     {
          $sesion = new ManejoSesiones();

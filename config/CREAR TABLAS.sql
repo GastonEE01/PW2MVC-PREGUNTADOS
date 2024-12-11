@@ -46,7 +46,6 @@ CREATE TABLE Partida (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     Descripcion TEXT NOT NULL ,
     Puntuacion INT NOT NULL,
-    Puntuacion_porcentaje DECIMAL(5, 2) NOT NULL,
     Usuario_id INT,
     Fecha_creada DATETIME DEFAULT CURRENT_TIMESTAMP,
     Fecha_finalizada DATETIME,
