@@ -8,6 +8,12 @@ body {
     align-items: center;
 }
 
+body select{
+    height: 40px;
+    font-size: 16px;
+    font-family: Arial Black;
+}
+
 .container {
     width: 100%;
     max-width: 768px;
@@ -78,6 +84,9 @@ body {
 .btn-primary {
     background-color: #10b981;
     color: white;
+    font-size: 14px;
+    width: 80px;
+    height: 35px;
 }
 
 .btn-primary:hover {
@@ -104,50 +113,16 @@ body {
     }
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* usuario + img perfil*/
 .profile-container {
     display: flex; /* Usamos flex para alinear los elementos */
     flex-direction: column; /* Cambiamos la dirección de la alineación a vertical */
+    align-items: center; /* Alinea la imagen y el nombre de manera centrada */
     position: absolute;
     top: 30px;
     left: 20px;
     font-size: 1.8rem;
     margin: 0;
 }
-
-
 
 .profile-pic {
     flex-shrink: 0;
@@ -161,12 +136,11 @@ button:hover {
     margin-left: 30px;
 }
 #userName {
+    margin-top: 40px;
     font-size: 1.8rem;
-    margin-top: 60px;
-    margin-left: -10px;
+    margin: 0;
 }
 
-/*temporalizador */
 #timeContainer {
     position: fixed;
     top: 30px;
@@ -203,73 +177,27 @@ body h1{
     font-family: Algerian;
 }
 
-/* Modal del temporalizado*/
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content-temporalizador {
-    font-family: Century;
-    font-size: 18px;
-    background-color: #da0e0e;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    width: 80%;
-    max-width: 400px;
-    text-align: center;
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-
-}
-
-.close {
-    color: #000000;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-/*Modal de reportar pregunta*/
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
 }
 
-
-.modal-content-reporte {
+.modal-content-reporte,
+.modal-content-temporalizador {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-family: Century;
     font-size: 18px;
-    background-color: #2196f3;
-    margin: auto;
-    margin-top: 300px;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 15px;
@@ -279,93 +207,41 @@ body h1{
     text-align: center;
 }
 
+.modal-content-reporte {
+    background-color: #2196f3;
+}
+
+.modal-content-temporalizador {
+    background-color: #da0e0e;
+    max-width: 400px;
+}
+
 .close {
-    color: #aaa;
+    color: #000000;
     float: right;
     font-size: 28px;
     font-weight: bold;
-}
-
-body select{
-    font-family: "Arial Black";
-    font-size: 16px;
-
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #ffffff;
     text-decoration: none;
-    cursor: pointer;
 }
 
 .botonReporte {
     margin-top: 10px;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
-}
-/* Estilo para el modal de respuesta correcta */
-.modalCorrecto {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #4CAF50; /* Verde */
-    color: black; /* Letra negra */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    z-index: 1000;
-}
-
-.modalCorrecto h2 {
-    margin: 0;
-}
-
-/* Estilo para el modal de respuesta incorrecta */
-.modalIncorrecto {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #f44336; /* Rojo */
-    color: black; /* Letra negra */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    z-index: 1000;
-}
-
-.modalIncorrecto h2 {
-    margin: 0;
-}
-
-/* Estilo para el botón dentro del modal de respuesta incorrecta */
-#modalIncorrecto button {
-    background-color: #d32f2f; /* Rojo oscuro */
-    color: black; /* Letra negra */
     padding: 10px 20px;
-    border: 1px solid black; /* Borde negro */
+    background-color: #ffffff;
+    color: #2196f3;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    font-family: "Arial Black";
+    font-size: 16px;
 }
 
-#modalIncorrecto button:hover {
-    background-color: #b71c1c; /* Rojo aún más oscuro */
+.botonReporte:hover {
+    background-color: #e0e0e0;
 }
-

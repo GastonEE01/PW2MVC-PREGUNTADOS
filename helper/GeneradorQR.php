@@ -8,11 +8,6 @@ class GeneradorQR
     public function __construct($outputDir = "public/imagenes/qr/")
     {
         $this->outputDir = $outputDir;
-
-       //  Asegúrate de que el directorio exista
-       /* if (!is_dir($this->outputDir)) {
-            mkdir($this->outputDir, 0777, true);
-        }*/
     }
 
     public function generarQRUsuario($nombre_usuario,$ciudad,$pais,$gmail)

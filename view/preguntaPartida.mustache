@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista de Quiz</title>
-    <link rel="stylesheet" href="/TP-pw2-MiniPreguntados/app/view/estilo/preguntasEstilo.css">
     <link rel="stylesheet" href="../public/css/preguntaPartida.css">
 
 </head>
@@ -92,7 +91,7 @@
         <h2>Seleccione el motivo del reporte</h2>
         <form id="formReportarPregunta" action="/PW2MVC-PREGUNTADOS/Usuario/reportarPregunta" method="POST">
 
-            <select name="selectMotivo">
+            <select name="selectMotivo" required>
                 <option>Elija un opcion</option>
                 <option value="La pregunta mal formulada">La pregunta mal formulada</option>
                 <option value="La pregunta no tiene la respuesta correcta">La pregunta no tiene la respuesta correcta</option>

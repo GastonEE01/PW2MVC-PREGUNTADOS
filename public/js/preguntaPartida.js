@@ -25,6 +25,7 @@ let totalTime = 30; // Tiempo total en segundos
 let timeLeft = totalTime;
 let modal = document.getElementById('timeOverModal');
 let closeModal = document.getElementById('closeModal');
+let timerAudio = document.getElementById('timer-audio');
 
 // Función para actualizar el contador y la barra de progreso
 let countdownInterval = setInterval(() => {
@@ -37,23 +38,19 @@ let countdownInterval = setInterval(() => {
 
     if (timeLeft <= 0) {
         clearInterval(countdownInterval); // Detener el temporizador
-
+        timerAudio.pause(); // Pausar el audio del temporizador
+        modal.style.display = "block";
         // Reproducir el sonido
         // Detener el sonido del temporizador
-        let timerAudio = document.getElementById('timer-audio');
-        timerAudio.pause(); // Pausar el audio
-
-        closeModal.onclick = function() {
-            window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
-            modal.style.display = "none"; // Cerrar el modal
-        };
-
-        closeModal.onclick = function() {
-                window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
-                modal.style.display = "none"; // Cerrar el modal
-        };
+        //let timerAudio = document.getElementById('timer-audio');
+        //timerAudio.pause(); // Pausar el audio
     }
 }, 1000); // Actualizar cada segundo
+
+closeModal.onclick = function() {
+    window.location.href = '/PW2MVC-PREGUNTADOS/Partida/validarRespuesta';
+    modal.style.display = "none"; // Cerrar el modal
+};
 
 // Función para cerrar el modal
 document.getElementById("closeModal").onclick = function() {
